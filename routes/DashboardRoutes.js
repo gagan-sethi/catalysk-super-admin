@@ -80,7 +80,7 @@ export const DashboardMenu = [
 		id: uuid(),
 		title: 'Corporates Management',
 		icon: 'briefcase',
-		link: '#'
+		link: '/pages/corporates-management'
 	},
 	{
 		id: uuid(),
