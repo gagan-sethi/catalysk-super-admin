@@ -46,6 +46,29 @@ const CorporatesList = () => {
                       <Link className="btn btn-primary" href="/pages/add-corporate">                        
                         Add New Corporate
                       </Link>
+
+                      <div className="btn btn-outline-white bulk-action-btn">
+                          <span
+                            className="dropdown-toggle"              
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                          <i className="fe fe-more-vertical"></i>
+                          </span>
+                          <ul className="dropdown-menu">                         
+                           
+                            <li>
+                              <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#block-mddl">
+                              Block
+                              </a>
+                            </li>
+                            <li>
+                              <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-mddl">
+                              Delete
+                              </a>
+                            </li>                        
+                          </ul>
+                      </div>
                       
                     </div>
                 </div>
@@ -80,6 +103,9 @@ const CorporatesList = () => {
                   <table className="table table-striped">
                     <thead>
                       <tr>
+                        <th scope="col">
+                          <input type="checkbox"  class="form-check-input" />
+                        </th>
                         <th scope="col">Sr. No.</th>
                         <th scope="col">Corporate ID</th>
                         <th scope="col">Registration Number</th>
@@ -96,7 +122,10 @@ const CorporatesList = () => {
                     <tbody>
 
                       <tr>
-                        <th scope="row">01</th>
+                        <td>
+                          <input type="checkbox"  class="form-check-input" />
+                        </td>
+                        <td scope="row">01</td>
                         <td>5869858555</td>
                         <td>CATA9874562</td>
                         <td>NexGen Enterprises</td>
@@ -159,7 +188,10 @@ const CorporatesList = () => {
                       </tr>   
 
                       <tr>
-                        <th scope="row">02</th>
+                      <td>
+                          <input type="checkbox"  class="form-check-input" />
+                        </td>
+                        <td>02</td>
                         <td>5869858555</td>
                         <td>CATA9874562</td>
                         <td>NexGen Enterprises</td>
@@ -223,7 +255,10 @@ const CorporatesList = () => {
 
 
                       <tr>
-                        <th scope="row">03</th>
+                      <td>
+                          <input type="checkbox"  class="form-check-input" />
+                        </td>
+                        <td>03</td>
                         <td>5869858555</td>
                         <td>CATA9874562</td>
                         <td>NexGen Enterprises</td>
@@ -281,7 +316,10 @@ const CorporatesList = () => {
                       </tr>   
 
                       <tr>
-                        <th scope="row">04</th>
+                      <td>
+                          <input type="checkbox"  class="form-check-input" />
+                        </td>
+                        <td>04</td>
                         <td>5869858555</td>
                         <td>CATA9874562</td>
                         <td>NexGen Enterprises</td>
@@ -339,7 +377,10 @@ const CorporatesList = () => {
                       </tr>   
 
                       <tr>
-                        <th scope="row">05</th>
+                      <td>
+                          <input type="checkbox"  class="form-check-input" />
+                        </td>
+                        <td>05</td>
                         <td>5869858555</td>
                         <td>CATA9874562</td>
                         <td>NexGen Enterprises</td>
@@ -397,7 +438,10 @@ const CorporatesList = () => {
                       </tr>   
 
                       <tr>
-                        <th scope="row">06</th>
+                      <td>
+                          <input type="checkbox"  class="form-check-input" />
+                        </td>
+                        <td>06</td>
                         <td>5869858555</td>
                         <td>CATA9874562</td>
                         <td>NexGen Enterprises</td>
@@ -536,26 +580,25 @@ const CorporatesList = () => {
 
                  {/* <!--Qr-code - Modal --> */}
 
-              <div class="modal fade" id="block-mddl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="qrcode-mddl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Generated </h1>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Generated QR Code </h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                          <div className="dlt-mdl">
-                            <h4 className="text-center">Are you sure want to block this corporate?</h4>
+                          <div className="qrcode-mdl">
+                              <Image src="/images/qr-code.svg" />
                           </div>
                     </div>
                     <div class="modal-footer">             
-                      <button type="button" class="btn btn-primary">Delete</button>
+                      <button type="button" class="btn btn-primary">Download</button>
                       <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
               </div>
-
       </Container>
     </>
   );

@@ -67,35 +67,7 @@ const ViewCorporate = () => {
 
         {/* modals */}
 
-          {/* <!-- Modal --> */}
-
-          <div class="modal fade" id="sparks-update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Sparks Update</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                      <div className="update-sparks-mdl">
-                          <div className="form-group mt-2">
-                              <label className="mb-2">Sparks Amount</label>
-                              <input className="form-control" placeholder="Enter Amount"/>
-                          </div>
-                          <div className="form-group mt-2">
-                              <label className="mb-2">Reason</label>
-                              <input className="form-control" placeholder="Enter Reason"/>
-                          </div>
-                      </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-white">Add</button>
-                  <button type="button" class="btn btn-outline-white">Minus</button>
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        
       </Container>
     </>
   );

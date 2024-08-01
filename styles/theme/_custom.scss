@@ -298,3 +298,19 @@
         margin-top: 20px;
     }
 }
+
+// 01/08/2024
+
+.qrcode-mdl{
+    img{
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+    }
+}
+
+.bulk-action-btn{
+    .dropdown-toggle::after{
+        display: none;
+    }
+}
