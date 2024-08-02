@@ -62,14 +62,15 @@ const AddCorporate = () => {
                         <input className="form-control" placeholder="Number of Employees" />
                       </div>
                     </div>                  
-                    
 
                     <div className="col-sm-6">
                       <div className="form-group">
-                        <label>Website URL</label>
-                        <input className="form-control" placeholder="Enter Website" />
+                        <label>Address</label>
+                       <textarea className="form-control">
+
+                       </textarea>
                       </div>
-                    </div> 
+                    </div>
 
                     <div className="col-sm-6">
                       <div className="form-group">
@@ -91,14 +92,6 @@ const AddCorporate = () => {
                           <option>Active</option>
                           <option>Block</option>
                         </select>
-                      </div>
-                    </div>
-
-                    <div className="col-sm-12">
-                      <div className="form-group">
-                        <label>Address</label>
-                       <textarea className="form-control">
-                       </textarea>
                       </div>
                     </div>
 
