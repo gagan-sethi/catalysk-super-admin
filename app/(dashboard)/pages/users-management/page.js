@@ -205,7 +205,7 @@ const UsersList = () => {
         if(res.ok){
            console.log('deleted')
       }
-     // window.location.reload();
+      window.location.reload();
     }
 
 
