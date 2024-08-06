@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { createContext, useState, useContext, useEffect } from 'react';
+
 import {
     Row,
     Col,
@@ -19,14 +21,46 @@ import NotificationList from 'data/Notification';
 
 // import hooks
 import useMounted from 'hooks/useMounted';
+import { useRouter } from 'next/navigation'
 
 const QuickMenu = () => {
-
+const [profile,setProfile] =useState('')
     const hasMounted = useMounted();
-    
+        const router = useRouter()
+                      const token = localStorage.getItem('token');
+
     const isDesktop = useMediaQuery({
         query: '(min-width: 1224px)'
     })
+
+     useEffect(() => {
+   getProfile();
+  }, []);
+
+    const getProfile = async () => {
+   
+     const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/getProfile`, {
+          method: 'GET',
+          headers: {
+          'Authorization': `Bearer ${token}`,
+
+        }
+        });
+      
+        const data = await res.json();
+        console.log(data)
+
+        setProfile(data.data)
+
+  
+
+
+  }
+
+    const logout = () => {
+    localStorage.clear();
+     router.push('/authentication/sign-in')
+    }
 
     const Notifications = () => {
         return (
@@ -115,8 +149,8 @@ const QuickMenu = () => {
                         <Link href="/pages/settings">   <i className="fe fe-settings me-2"></i> Account Settings</Link>
                       
                     </Dropdown.Item>
-                    <Dropdown.Item>
-                        <i className="fe fe-power me-2"></i>Sign Out
+                    <Dropdown.Item onClick={() => logout()}>
+                        <i className="fe fe-power me-2" ></i>Sign Out
                     </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
@@ -173,7 +207,7 @@ const QuickMenu = () => {
                     >
                     <Dropdown.Item as="div" className="px-4 pb-0 pt-2" bsPrefix=' '>
                             <div className="lh-1 ">
-                                <h5 className="mb-1"> John E. Grainger</h5>
+                                <h5 className="mb-1"> {profile.full_name}</h5>
                                 <Link href="#" className="text-inherit fs-6">View my profile</Link>
                             </div>
                             <div className=" dropdown-divider mt-3 mb-2"></div>

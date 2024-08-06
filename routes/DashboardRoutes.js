@@ -64,11 +64,14 @@ export const DashboardMenu = [
 	// 		}
 	// 	]
 	// },
+
+
+	
 	{
 		id: uuid(),
 		title: 'Dashboard',
 		icon: 'home',
-		link: '/'
+		link: '/pages/dashboard'
 	},	
 	{
 		id: uuid(),

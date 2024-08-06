@@ -13,14 +13,14 @@ const Version_01_01_00 = () => {
 		'sub-components/dashboard/TasksPerformance.js',
 		'sub-components/settings/EmailSetting.js',
 		'sub-components/settings/GeneralSetting.js',
-		'routes/DashboardRoutes.js',
+		'routes/AuthLayout.js',
 		'data/code/ListgroupsCode.js',
 		'data/code/NavbarsCode.js',
 		'data/code/ToastsCode.js',
 		'components/bootstrap/DotBadge.js'
 	]
 	const DeletedFiles = [
-		'layouts/DefaultDashboardLayout.js',
+		'layouts/AuthLayout.js',
 		'layouts/NotFound.js',
 		'layouts/AuthLayout.js',
 		'pages/_app.js',

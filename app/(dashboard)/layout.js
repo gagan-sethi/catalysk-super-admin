@@ -14,8 +14,10 @@ export default function DashboardLayout({ children }) {
 	const ToggleMenu = () => {
 		return setShowMenu(!showMenu);
 	};
-
+	
+	if(typeof window !== 'undefined' && localStorage.getItem('token')){
 	return (
+
 		<div id="db-wrapper" className={`${showMenu ? '' : 'toggled'}`}>
 			<div className="navbar-vertical navbar">
 				<NavbarVertical
@@ -36,4 +38,12 @@ export default function DashboardLayout({ children }) {
 			</div>
 		</div>
 	)
+	}else{
+	return (
+	<div>
+	{children}
+	</div>
+	)
+
+	}
 }
