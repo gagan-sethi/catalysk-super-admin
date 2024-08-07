@@ -246,7 +246,7 @@ const CorporateEmployees = () => {
 
                     </nav>
                  </div>
-              </div>  
+      </div>  
 
       </div>
     </div>

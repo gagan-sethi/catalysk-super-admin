@@ -7,8 +7,23 @@ const Questionnaires = () => {
 
     return (
         <div className='questions-tab-cntnt'>
+
+            {/* Electricity-Questions-Content */}
+
             <div className='card'>
-                <div className='card-body'>
+                <div className='card-body'>                
+                    <div>
+                        <h4>Users's Summary</h4>                  
+                    </div>   
+
+                    <div className='kwh-smry'>
+                        <div className='khw-card'>
+                              <img src="/images/bhk.svg" />  
+                              <h4>3.5</h4>
+                              <p>BHK</p>
+                        </div>                      
+                    </div>
+
                     <div className='question-header'>
                         <div>
                             <h4>Users's Summary</h4>
