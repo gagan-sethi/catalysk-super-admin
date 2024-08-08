@@ -1,10 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\app\\(auth)\\authentication",
-    "\\app\\(dashboard)\\pages\\view-user\\[id]",
-    "\\sub-components\\questionnaires"
+    "\\app",
+    "\\app\\(dashboard)",
+    "\\app\\(dashboard)\\pages",
+    "\\app\\(dashboard)\\pages\\users-management"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\app\\(dashboard)\\pages\\users-management\\page.js",
   "PreviewInSolutionExplorer": false
 }

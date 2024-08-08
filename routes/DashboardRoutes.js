@@ -102,10 +102,10 @@ export const DashboardMenu = [
 		title: 'General Management',
 		icon: 'edit',
 		children: [
-			{ id: uuid(), link: '#', name: 'Privacy Policy' },
-			{ id: uuid(), link: '#', name: 'Terms and Conditions' },
-			{ id: uuid(), link: '#', name: 'Feedbacks'},
-			{ id: uuid(), link: '#', name: 'F.A.Q'}				
+			{ id: uuid(), link: 'privacy-policy', name: 'Privacy Policy' },
+			{ id: uuid(), link: 'terms-conditions', name: 'Terms and Conditions' },
+			{ id: uuid(), link: 'feedbacks-management', name: 'Feedbacks'},
+			{ id: uuid(), link: 'faq-management', name: 'F.A.Q'}				
 		]
 	},
 
