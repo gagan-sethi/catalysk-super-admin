@@ -101,8 +101,8 @@ export const DashboardMenu = [
 		children: [
 			{ id: uuid(), link: 'privacy-policy', name: 'Privacy Policy' },
 			{ id: uuid(), link: 'terms-conditions', name: 'Terms and Conditions' },
-			{ id: uuid(), link: 'feedbacks', name: 'Feedbacks'},
-			{ id: uuid(), link: 'faq', name: 'F.A.Q'}				
+			{ id: uuid(), link: 'feedbacks-management', name: 'Feedbacks'},
+			{ id: uuid(), link: 'faq-management', name: 'F.A.Q'}				
 		]
 	},
 

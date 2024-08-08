@@ -31,18 +31,15 @@ import Preferences from 'sub-components/settings/Preferences';
 export {
    ActiveProjects,
    TasksPerformance,
-   Teams,
-   
+   Teams,   
    AboutMe,
    ActivityFeed,
    MyTeam,
    ProfileHeader,
    ProjectsContributions,
    RecentFromBlog,
-
    CurrentPlan,
    BillingAddress,
-
    DeleteAccount, 
    EmailSetting,  
    GeneralSetting, 

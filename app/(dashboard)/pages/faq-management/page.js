@@ -10,6 +10,8 @@ import "ckbox/dist/styles/themes/lark.css";
 
 // CKBox is a peer dependency of CKEditor. It must be present in the global scope.
 // Importing UMD build of CKBox will make sure that `window.CKBox` will be available.
+
+
 import "ckbox/dist/ckbox";
 import Link from 'next/link';
 
@@ -20,8 +22,13 @@ const FaqManagement = () => {
 
   return (
     <Container fluid className="p-6">
-      {/* Page Heading */}
-      <PageHeading heading="Faq Management"/>
+
+      <div className='d-flex justify-content-between align-items-center'>
+        {/* Page Heading */}
+        <PageHeading heading="Faq Management"/>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-faq-mddl">Add</button>
+
+      </div>
 
       <div className='card'>
         <div className='card-body'>
@@ -53,34 +60,12 @@ const FaqManagement = () => {
                          </td>                                   
                      
                         <td className="action-td">
-                          <div className="dropdown">
 
-                              <span
-                                className="cstmDropdown dropdown-toggle"              
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                              >
-                              <i className="fe fe-more-vertical"></i>
-                              </span>
-                              <ul className="dropdown-menu">
-                                <li>
-                                  <Link className="dropdown-item" href="/pages/view-corporate">
-                                  View
-                                  </Link>
-                                </li>
-                                <li>
-                                  <a className="dropdown-item" href="#">
-                                  Edit
-                                  </a>
-                                </li>                             
-                                <li>
-                                  <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-mddl">
-                                  Delete
-                                  </a>
-                                </li>                             
-                              </ul>
-
-                          </div>
+                            <div className='actions-bttns'>
+                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
+                            </div>
                         </td>
                       
                       </tr>   
@@ -99,36 +84,14 @@ const FaqManagement = () => {
                         </div>
                        </td>                                   
                    
-                      <td className="action-td">
-                        <div className="dropdown">
+                       <td className="action-td">
 
-                            <span
-                              className="cstmDropdown dropdown-toggle"              
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                            <i className="fe fe-more-vertical"></i>
-                            </span>
-                            <ul className="dropdown-menu">
-                              <li>
-                                <Link className="dropdown-item" href="/pages/view-corporate">
-                                View
-                                </Link>
-                              </li>
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                Edit
-                                </a>
-                              </li>                             
-                              <li>
-                                <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-mddl">
-                                Delete
-                                </a>
-                              </li>                             
-                            </ul>
-
-                        </div>
-                      </td>
+                          <div className='actions-bttns'>
+                              <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
+                              <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
+                              <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
+                          </div>
+                          </td>
                     
                     </tr>   
 
@@ -147,36 +110,14 @@ const FaqManagement = () => {
                         </div>
                        </td>                                   
                    
-                      <td className="action-td">
-                        <div className="dropdown">
+                       <td className="action-td">
 
-                            <span
-                              className="cstmDropdown dropdown-toggle"              
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                            <i className="fe fe-more-vertical"></i>
-                            </span>
-                            <ul className="dropdown-menu">
-                              <li>
-                                <Link className="dropdown-item" href="/pages/view-corporate">
-                                View
-                                </Link>
-                              </li>
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                Edit
-                                </a>
-                              </li>                             
-                              <li>
-                                <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-mddl">
-                                Delete
-                                </a>
-                              </li>                             
-                            </ul>
-
-                        </div>
-                      </td>
+                            <div className='actions-bttns'>
+                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
+                            </div>
+                        </td>
                     
                     </tr>   
 
@@ -194,42 +135,14 @@ const FaqManagement = () => {
                         </div>
                        </td>                                   
                    
-                      <td className="action-td">
-                          <div className='actns-bttns'>
-                              <span><i></i> </span>
-                              <span> </span>
-                              <span> </span>
-                          </div>
+                       <td className="action-td">
 
-                        <div className="dropdown">
-
-                            <span
-                              className="cstmDropdown dropdown-toggle"              
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                            <i className="fe fe-more-vertical"></i>
-                            </span>
-                            <ul className="dropdown-menu">
-                              <li>
-                                <Link className="dropdown-item" href="/pages/view-corporate">
-                                View
-                                </Link>
-                              </li>
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                Edit
-                                </a>
-                              </li>                             
-                              <li>
-                                <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-mddl">
-                                Delete
-                                </a>
-                              </li>                             
-                            </ul>
-
-                        </div>
-                      </td>
+                            <div className='actions-bttns'>
+                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
+                            </div>
+                        </td>
                     
                     </tr>   
 
@@ -247,36 +160,14 @@ const FaqManagement = () => {
                         </div>
                        </td>                                   
                    
-                      <td className="action-td">
-                        <div className="dropdown">
+                       <td className="action-td">
 
-                            <span
-                              className="cstmDropdown dropdown-toggle"              
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                            <i className="fe fe-more-vertical"></i>
-                            </span>
-                            <ul className="dropdown-menu">
-                              <li>
-                                <Link className="dropdown-item" href="/pages/view-corporate">
-                                View
-                                </Link>
-                              </li>
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                Edit
-                                </a>
-                              </li>                             
-                              <li>
-                                <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-mddl">
-                                Delete
-                                </a>
-                              </li>                             
-                            </ul>
-
-                        </div>
-                      </td>
+                            <div className='actions-bttns'>
+                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
+                            </div>
+                        </td>
                     
                     </tr>   
 
@@ -294,37 +185,17 @@ const FaqManagement = () => {
                         </div>
                        </td>                                   
                    
-                      <td className="action-td">
-                        <div className="dropdown">
-                            <span
-                              className="cstmDropdown dropdown-toggle"              
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                            <i className="fe fe-more-vertical"></i>
-                            </span>
-                            <ul className="dropdown-menu">
-                              <li>
-                                <Link className="dropdown-item" href="/pages/view-corporate">
-                                View
-                                </Link>
-                              </li>
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                Edit
-                                </a>
-                              </li>                             
-                              <li>
-                                <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-mddl">
-                                Delete
-                                </a>
-                              </li>                             
-                            </ul>
-                        </div>
-                      </td>
-                    
-                    </tr>                                    
+                       <td className="action-td">
 
+                            <div className='actions-bttns'>
+                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
+                            </div>
+
+                        </td>   
+
+                    </tr>                                   
                     
                     </tbody>
                   </table>             
@@ -356,6 +227,134 @@ const FaqManagement = () => {
         </div>
 
       </div>
+
+       {/* modals */}
+
+          {/* <!--delete- Modal --> */}
+
+          <div class="modal fade" id="delete-mddl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Delete FAQ</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                          <div className="dlt-mdl">
+                            <h4 className="text-center">Are you sure want to delete this FAQ?</h4>
+                          </div>
+                    </div>
+                    <div class="modal-footer">             
+                      <button type="button" class="btn btn-primary">Delete</button>
+                      <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+               {/* <!--Add- Modal --> */}
+
+          <div class="modal fade" id="add-faq-mddl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Add FAQ</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                          <div className="add-mdl">
+
+                              <div className='form-group mb-3'>
+                                  <label className='mb-3'>Faq Question</label>
+                                  <input className='form-control' placeholder='Enter faq question' />
+                              </div>
+
+                              <div className='form-group'>
+                                  <label className='mb-3'>Faq Answer</label>
+                                  <textarea className='form-control' placeholder='Faq Answer' rows="6"> </textarea> 
+                              </div>
+
+                          </div>
+
+                    </div>
+                    <div class="modal-footer">             
+                      <button type="button" class="btn btn-primary">Add</button>
+                      <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+   {/* <!--view- Modal --> */}
+
+   <div class="modal fade" id="view-faq-mddl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">View FAQ</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                          <div className="view-mdl only-view" >
+
+                              <div className='form-group mb-3'>
+                                  <label className='mb-3'>Faq Question</label>
+                                  <input className='form-control' value='What is the return policy?' />
+                              </div>
+
+                              <div className='form-group'>
+                                  <label className='mb-3'>Faq Answer</label>
+                                  <textarea className='form-control' rows="6" value='Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.'> </textarea> 
+                              </div>
+
+                          </div>
+
+                    </div>
+                    <div class="modal-footer">             
+                      <button type="button" class="btn btn-primary">Edit</button>
+                      <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              {/* <!--edit- Modal --> */}
+
+   <div class="modal fade" id="edit-faq-mddl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Edit FAQ</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                          <div className="view-mdl" >
+
+                              <div className='form-group mb-3'>
+                                  <label className='mb-3'>Faq Question</label>
+                                  <input className='form-control' value='What is the return policy?' />
+                              </div>
+
+                              <div className='form-group'>
+                                  <label className='mb-3'>Faq Answer</label>
+                                  <textarea className='form-control' rows="6" value='Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.'> </textarea> 
+                              </div>
+
+                          </div>
+
+                    </div>
+                    <div class="modal-footer">             
+                      <button type="button" class="btn btn-primary">Update</button>
+                      <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
      
 
     </Container>

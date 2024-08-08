@@ -45,6 +45,7 @@
     text-align: center;
     color: #fff;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .pagination-div{
@@ -347,4 +348,34 @@
             
         }
         }
+    }
+
+    .actions-bttns{
+        display: flex;
+        gap: 10px;
+        align-items: center;        
+        span{
+            i{
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                display: block;
+                background: #373737;
+                text-align: center;
+                color: #fff;
+                cursor: pointer;
+                overflow: hidden;
+
+            }
+        }
+    }
+
+    // 08/08/2024
+
+    .feedbacks{
+        min-width: 350px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     }
