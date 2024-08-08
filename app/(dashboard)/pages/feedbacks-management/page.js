@@ -4,16 +4,7 @@ import { Col, Row, Container, Button } from 'react-bootstrap';
 
 // import widget as custom components
 import { PageHeading } from 'widgets'
-import { CKEditor as CKEditorComponent } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import "ckbox/dist/styles/themes/lark.css";
 
-// CKBox is a peer dependency of CKEditor. It must be present in the global scope.
-// Importing UMD build of CKBox will make sure that `window.CKBox` will be available.
-
-
-import "ckbox/dist/ckbox";
-import Link from 'next/link';
 
 
 
@@ -266,7 +257,7 @@ const FeedbacksManagement = () => {
 
                           <div className='form-group mb-3'>
                                   <label className='mb-3'>Feedback</label>
-                                  <textarea className='form-control' rows="6" value='It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using , making it look like readable English.'> </textarea> 
+                                  <textarea className='form-control' rows="6" > </textarea> 
                               </div>
 
                               <div className='form-group'>
@@ -301,7 +292,7 @@ const FeedbacksManagement = () => {
 
                               <div className='form-group only-view mb-3'>
                                   <label className='mb-3'>Feedback</label>
-                                  <textarea className='form-control' rows="6" value='It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using , making it look like readable English.'> </textarea> 
+                                  <textarea className='form-control' rows="6" > </textarea> 
                               </div>
 
                               <div className='form-group'>

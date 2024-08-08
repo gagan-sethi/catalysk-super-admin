@@ -422,7 +422,7 @@
         }
 
         h4.givenAns{
-            font-size: 26px;
+            font-size: 22px;
 
         }
 
@@ -436,4 +436,32 @@
             font-size: 18px;
             font-weight: 500;
         }
+    }
+
+    .applince-list{
+        padding: 0px;
+        list-style: none;
+        li{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0px;
+            border-bottom: 1px solid #c1c1c1;
+
+            .appli-nme{
+                font-size: 16px;
+            }
+
+            .appli-qty{
+                font-size: 16px;
+                font-weight: 700;
+                color: #373737;
+            }
+        }
+    }
+
+
+    .ck-editor__editable{
+        min-height: 250px;
+
     }

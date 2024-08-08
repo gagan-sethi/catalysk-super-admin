@@ -27,7 +27,7 @@ const Questionnaires = () => {
                                 <div class="tab-pane fade show active" id="electricity" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                                     <div className='electricity-ques'>
                                         <div className='mt-5 mb-5'>
-                                            <h4>Users's Summary</h4>                  
+                                            <h3>Users's Summary</h3>                  
                                         </div>                                 
 
                                          <div className='answers-list-sec'>
@@ -81,6 +81,127 @@ const Questionnaires = () => {
                                                     </div>  
                                                 </div>
                                             </div>
+
+                                                <div className='mt-5 mb-5'>
+                                                    <h3>Appliances Details</h3>                  
+                                                </div>   
+
+                                                <div className='row row-gap-5'>                                               
+
+                                                <div className='col-sm-4'>
+                                                    <div className='answer-card card-bg'>
+                                                        <h4 className='givenAns'>Living Room</h4>
+                                                        <ul className='applince-list'>
+                                                            <li>
+                                                              <span className='appli-nme'>Lights</span>
+                                                              <span className='appli-qty'>05</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Fans</span>
+                                                              <span className='appli-qty'>02</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Air Conditioners</span>
+                                                              <span className='appli-qty'>01</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>  
+                                                </div>
+
+                                                <div className='col-sm-4'>
+                                                    <div className='answer-card card-bg'>
+                                                        <h4 className='givenAns'>Bedroom-01</h4>
+                                                        <ul className='applince-list'>
+                                                            <li>
+                                                              <span className='appli-nme'>Lights</span>
+                                                              <span className='appli-qty'>05</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Fans</span>
+                                                              <span className='appli-qty'>02</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Air Conditioners</span>
+                                                              <span className='appli-qty'>01</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>  
+                                                </div>
+
+                                                <div className='col-sm-4'>
+                                                    <div className='answer-card card-bg'>
+                                                        <h4 className='givenAns'>Bedroom-02</h4>
+                                                        <ul className='applince-list'>
+                                                            <li>
+                                                              <span className='appli-nme'>Lights</span>
+                                                              <span className='appli-qty'>05</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Fans</span>
+                                                              <span className='appli-qty'>02</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Air Conditioners</span>
+                                                              <span className='appli-qty'>01</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>  
+                                                </div>
+
+                                                <div className='col-sm-4'>
+                                                    <div className='answer-card card-bg'>
+                                                        <h4 className='givenAns'>Staff Room</h4>
+                                                        <ul className='applince-list'>
+                                                            <li>
+                                                              <span className='appli-nme'>Lights</span>
+                                                              <span className='appli-qty'>05</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Fans</span>
+                                                              <span className='appli-qty'>02</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Air Conditioners</span>
+                                                              <span className='appli-qty'>01</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>  
+                                                </div>
+
+                                                <div className='col-sm-4'>
+                                                    <div className='answer-card card-bg'>
+                                                        <h4 className='givenAns'>Rest of the house</h4>
+                                                        <ul className='applince-list'>
+                                                            <li>
+                                                              <span className='appli-nme'>Lights</span>
+                                                              <span className='appli-qty'>05</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Fans</span>
+                                                              <span className='appli-qty'>02</span>
+                                                            </li>
+
+                                                            <li>
+                                                              <span className='appli-nme'>Air Conditioners</span>
+                                                              <span className='appli-qty'>01</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>  
+                                                </div>
+
+                                            </div> 
+
+
+
                                         </div>       
 
                                     </div>

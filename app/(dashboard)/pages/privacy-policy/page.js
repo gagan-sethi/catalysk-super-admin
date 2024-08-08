@@ -1,46 +1,26 @@
 'use client'
 // import node module libraries
 import { Col, Row, Container, Button } from 'react-bootstrap';
-
-// import widget as custom components
 import { PageHeading } from 'widgets'
-import { CKEditor as CKEditorComponent } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import "ckbox/dist/styles/themes/lark.css";
-
-// CKBox is a peer dependency of CKEditor. It must be present in the global scope.
-// Importing UMD build of CKBox will make sure that `window.CKBox` will be available.
-import "ckbox/dist/ckbox";
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 
 
 
 const PrivacyPolicy = () => {
+  const [CKEditor, setCKEditor] = useState(null);
+  const [ClassicEditor, setClassicEditor] = useState(null);
 
-  const config = {
-    ckbox: {
-        tokenUrl: `${process.env.NEXT_PUBLIC_URL}/api/ckbox`,
-        theme: "lark",
-    },
-    toolbar: [
-        "ckbox",
-        "imageUpload",
-        "|",
-        "heading",
-        "|",
-        "undo",
-        "redo",
-        "|",
-        "bold",
-        "italic",
-        "|",
-        "blockQuote",
-        "indent",
-        "link",
-        "|",
-        "bulletedList",
-        "numberedList",
-    ],
-};
+  useEffect(() => {
+    const loadEditor = async () => {
+      const { CKEditor: LoadedCKEditor } = await import('@ckeditor/ckeditor5-react');
+      const { default: LoadedClassicEditor } = await import('@ckeditor/ckeditor5-build-classic');
+      setCKEditor(() => LoadedCKEditor); // Use function to set state correctly
+      setClassicEditor(() => LoadedClassicEditor);
+    };
+
+    loadEditor();
+  }, []);
 
   return (
     <Container fluid className="p-6">
@@ -58,8 +38,18 @@ const PrivacyPolicy = () => {
             <div className='form-group mt-5'>
               <label className='mb-2'>Page Content</label>
 
-              <style>{`.ck-editor__editable_inline { min-height: 300px; }`}</style>
-              <CKEditorComponent editor={ClassicEditor} config={config} />
+             {/* ckeditor start */}
+             {CKEditor && ClassicEditor && (
+              <CKEditor
+                editor={ClassicEditor}
+                data="<p>Type your content here...</p>"
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  console.log({ event, data });
+                }}
+              />
+            )}
+             {/* ckeditor end*/}
             </div>
 
             <div className='d-flex justify-content-center p-3'>

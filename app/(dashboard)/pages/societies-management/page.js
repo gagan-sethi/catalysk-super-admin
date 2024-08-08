@@ -601,7 +601,7 @@ const SocietiesList = () => {
                     </div>
                     <div class="modal-body">
                           <div className="qrcode-mdl">
-                              <Image src="/images/qr-code.svg" />
+                              <Image src="/images/qr-code.svg" alt="qr-code" />
                           </div>
                     </div>
                     <div class="modal-footer">             

@@ -1,24 +1,19 @@
 'use client'
+import { useEffect } from 'react';
 // import node module libraries
 import { Col, Row, Container, Button } from 'react-bootstrap';
 
 // import widget as custom components
 import { PageHeading } from 'widgets'
-import { CKEditor as CKEditorComponent } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import "ckbox/dist/styles/themes/lark.css";
-
-// CKBox is a peer dependency of CKEditor. It must be present in the global scope.
-// Importing UMD build of CKBox will make sure that `window.CKBox` will be available.
-
-
-import "ckbox/dist/ckbox";
-import Link from 'next/link';
 
 
 
 const FaqManagement = () => {
-
+  useEffect(() => {
+    // if (typeof window !== 'undefined') {
+    //   require('bootstrap/dist/js/bootstrap.bundle.min.js');
+    // }
+  }, []);
 
   return (
     <Container fluid className="p-6">
@@ -307,7 +302,7 @@ const FaqManagement = () => {
 
                               <div className='form-group'>
                                   <label className='mb-3'>Faq Answer</label>
-                                  <textarea className='form-control' rows="6" value='Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.'> </textarea> 
+                                  <textarea className='form-control' rows="6"> </textarea> 
                               </div>
 
                           </div>
@@ -342,7 +337,7 @@ const FaqManagement = () => {
 
                               <div className='form-group'>
                                   <label className='mb-3'>Faq Answer</label>
-                                  <textarea className='form-control' rows="6" value='Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.'> </textarea> 
+                                  <textarea className='form-control' rows="6"> </textarea> 
                               </div>
 
                           </div>
