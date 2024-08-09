@@ -5,6 +5,7 @@ import { PageHeading } from 'widgets'
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const PrivacyPolicy = () => {
@@ -16,6 +17,7 @@ const PrivacyPolicy = () => {
   const [contentError, setContentError] = useState("");
 
   useEffect(() => {
+
     const loadEditor = async () => {
       const { CKEditor: LoadedCKEditor } = await import('@ckeditor/ckeditor5-react');
       const { default: LoadedClassicEditor } = await import('@ckeditor/ckeditor5-build-classic');
@@ -24,8 +26,48 @@ const PrivacyPolicy = () => {
     };
 
     loadEditor();
+
+        
+
   }, []);
 
+  useEffect(()=>{
+  console.log('testttttttttt')
+        getcms()
+  }, [])
+
+
+
+
+
+     const  getcms = async  () => {
+           try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/cms/getCMS?type=privacy_policy`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        
+      });
+
+      console.log(response)
+      const data = await response.json();
+        console.log(data)
+      setHeading(data.data.heading)
+      setContent(data.data.content)
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+
+      
+      
+      return data;
+    } catch (error) {
+      console.error('Error in API call:', error);
+    //  setEmailError('Error checking email. Please try again.');
+    }
+     }
 
     const handleInputChange = (e) => {
     setHeading(e.target.value);
@@ -77,6 +119,9 @@ const PrivacyPolicy = () => {
         body: JSON.stringify({ heading,content, type}),
       });
 
+                    toast.success('Updated sussccessfully');
+
+
       if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);
       }
@@ -85,7 +130,7 @@ const PrivacyPolicy = () => {
       return data;
     } catch (error) {
       console.error('Error in API call:', error);
-      setEmailError('Error checking email. Please try again.');
+     // setEmailError('Error checking email. Please try again.');
     }
     }
   };
@@ -136,8 +181,10 @@ const PrivacyPolicy = () => {
 
       </div>
      
+                 <Toaster position="top-right" />
 
     </Container>
+
   )
 }
 

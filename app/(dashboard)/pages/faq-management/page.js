@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // import node module libraries
 import { Col, Row, Container, Button } from 'react-bootstrap';
 
@@ -9,11 +9,220 @@ import { PageHeading } from 'widgets'
 
 
 const FaqManagement = () => {
+
+
+const [faqList, sefaqList] = useState([])
+const [question, setQuestion] = useState('')
+const [answer, setAnswer] = useState('')
+const [questionerror, setquestionerror] = useState('')
+const [answererror, setanswererror] = useState('')
+
+const [selecteid , setselecteid] = useState('')
   useEffect(() => {
+
+  getcms()
     // if (typeof window !== 'undefined') {
     //   require('bootstrap/dist/js/bootstrap.bundle.min.js');
     // }
   }, []);
+
+
+  const handleInputChange = (e) => {
+    setQuestion(e.target.value);
+   
+    if(!question){
+        setquestionerror("Please enter someting...");
+
+    }else{
+            setquestionerror("");
+
+    }
+  };
+
+
+  
+   const save = async () => {
+   
+   if(!question){
+   setquestionerror('Please enter someting...')
+   return
+   }else if(!answer){
+  setanswererror('Please enter someting...')
+   return
+
+   }else{
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/cms/addFaq`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ question,answer}),
+      });
+
+                  window.location.reload();
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+
+      const data = await response?.json();
+      return data;
+
+    } catch (error) {
+      console.error('Error in API call:', error);
+     // setEmailError('Error checking email. Please try again.');
+    }
+    }
+  };
+
+
+
+     const update = async () => {
+   
+   if(!question){
+   setquestionerror('Please enter someting...')
+   return
+   }else if(!answer){
+  setanswererror('Please enter someting...')
+   return
+
+   }else{
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/cms/editFaq/${selecteid}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ question,answer}),
+      });
+
+                  window.location.reload();
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+
+      const data = await response?.json();
+      return data;
+
+    } catch (error) {
+      console.error('Error in API call:', error);
+     // setEmailError('Error checking email. Please try again.');
+    }
+    }
+  };
+
+
+
+  const deletefaq = async () => {
+   
+   
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/cms/deleteFaq/${selecteid}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+       
+      });
+
+                  window.location.reload();
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+
+      const data = await response?.json();
+      return data;
+
+    } catch (error) {
+      console.error('Error in API call:', error);
+     // setEmailError('Error checking email. Please try again.');
+    }
+   
+  };
+
+
+    const handleInputChangeanswer = (e) => {
+    setAnswer(e.target.value);
+   
+    if(!answer){
+        setanswererror("Please enter someting...");
+
+    }else{
+            setanswererror("");
+
+    }
+  };
+
+
+  const getdetails = async  (e) => {
+  setselecteid(e)
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/cms/getSingleFaq/${e}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        
+      });
+
+      console.log(response)
+
+      const data = await response.json();
+            setQuestion(data.data.question)
+                        setAnswer(data.data.answer)
+
+     
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+
+      
+      
+      return data;
+    } catch (error) {
+      console.error('Error in API call:', error);
+    //  setEmailError('Error checking email. Please try again.');
+    }
+     }
+
+
+                            const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
+
+
+     const  getcms = async  () => {
+           try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/cms/getFaqList`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        
+      });
+
+      console.log(response)
+      const data = await response.json();
+       
+      sefaqList(data.data)
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+
+      
+      
+      return data;
+    } catch (error) {
+      console.error('Error in API call:', error);
+    //  setEmailError('Error checking email. Please try again.');
+    }
+     }
 
   return (
     <Container fluid className="p-6">
@@ -39,164 +248,39 @@ const FaqManagement = () => {
                       </tr>
                     </thead>
                     <tbody>
-
+                      {faqList.map((tdata, index) => (
                       <tr>
                       
-                        <td scope="row">01</td>
+                        <td scope="row">{index+1}</td>
                         <td>
                           <div className='faq-ans'>
-                             What is the return policy?
+                            {tdata.question}
                           </div>
                          </td>
                         <td>
                           <div className='faq-ans'>
-                          Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.   
+                         {tdata.answer}   
                           </div>
                          </td>                                   
                      
                         <td className="action-td">
 
                             <div className='actions-bttns'>
-                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"  onClick={(e) => getdetails(tdata._id)}> <i className="fe fe-eye"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"  onClick={(e) => getdetails(tdata._id)}> <i className="fe fe-edit"></i></span>
+                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"  onClick={(e) => getdetails(tdata._id)}> <i className="fe fe-trash"></i></span>
                             </div>
                         </td>
                       
                       </tr>   
 
-                      <tr>
-                      
-                      <td scope="row">02</td>
-                      <td>
-                        <div className='faq-ans'>
-                           What is the return policy?
-                        </div>
-                       </td>
-                      <td>
-                        <div className='faq-ans'>
-                        Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.   
-                        </div>
-                       </td>                                   
-                   
-                       <td className="action-td">
-
-                          <div className='actions-bttns'>
-                              <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
-                              <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
-                              <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
-                          </div>
-                          </td>
-                    
-                    </tr>   
-
-
-                    <tr>
-                      
-                      <td scope="row">03</td>
-                      <td>
-                        <div className='faq-ans'>
-                           What is the return policy?
-                        </div>
-                       </td>
-                      <td>
-                        <div className='faq-ans'>
-                        Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.   
-                        </div>
-                       </td>                                   
-                   
-                       <td className="action-td">
-
-                            <div className='actions-bttns'>
-                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
-                            </div>
-                        </td>
-                    
-                    </tr>   
-
-                    <tr>
-                      
-                      <td scope="row">04</td>
-                      <td>
-                        <div className='faq-ans'>
-                           What is the return policy?
-                        </div>
-                       </td>
-                      <td>
-                        <div className='faq-ans'>
-                        Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.   
-                        </div>
-                       </td>                                   
-                   
-                       <td className="action-td">
-
-                            <div className='actions-bttns'>
-                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
-                            </div>
-                        </td>
-                    
-                    </tr>   
-
-                    <tr>
-                      
-                      <td scope="row">05</td>
-                      <td>
-                        <div className='faq-ans'>
-                           What is the return policy?
-                        </div>
-                       </td>
-                      <td>
-                        <div className='faq-ans'>
-                        Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.   
-                        </div>
-                       </td>                                   
-                   
-                       <td className="action-td">
-
-                            <div className='actions-bttns'>
-                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
-                            </div>
-                        </td>
-                    
-                    </tr>   
-
-                    <tr>
-                      
-                      <td scope="row">06</td>
-                      <td>
-                        <div className='faq-ans'>
-                           What is the return policy?
-                        </div>
-                       </td>
-                      <td>
-                        <div className='faq-ans'>
-                        Our return policy allows you to return products within 30 days of purchase. The items must be unused and in their original packaging. Please visit our returns page for more details.   
-                        </div>
-                       </td>                                   
-                   
-                       <td className="action-td">
-
-                            <div className='actions-bttns'>
-                                <span  data-bs-toggle="modal" data-bs-target="#view-faq-mddl"> <i className="fe fe-eye"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#edit-faq-mddl"> <i className="fe fe-edit"></i></span>
-                                <span  data-bs-toggle="modal" data-bs-target="#delete-mddl"> <i className="fe fe-trash"></i></span>
-                            </div>
-
-                        </td>   
-
-                    </tr>                                   
+                         ))}              
                     
                     </tbody>
                   </table>             
 
                 </div>
-                <div className="pagination-div">              
+               {/* <div className="pagination-div">              
                    <nav aria-label="...">                    
                       <ul class="pagination">
                         <li class="page-item disabled">
@@ -216,7 +300,7 @@ const FaqManagement = () => {
                       </ul>
 
                     </nav>
-                 </div>
+                 </div> */}
               </div>
 
         </div>
@@ -240,7 +324,7 @@ const FaqManagement = () => {
                           </div>
                     </div>
                     <div class="modal-footer">             
-                      <button type="button" class="btn btn-primary">Delete</button>
+                      <button type="button" class="btn btn-primary"  onClick={deletefaq}>Delete</button>
                       <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
@@ -262,19 +346,26 @@ const FaqManagement = () => {
 
                               <div className='form-group mb-3'>
                                   <label className='mb-3'>Faq Question</label>
-                                  <input className='form-control' placeholder='Enter faq question' />
+                                  <input className='form-control'  placeholder='Enter faq question' value={question}
+                onChange={handleInputChange}/>
+
+                                  {questionerror && <p className="text-red-500 text-sm mt-2">{questionerror}</p>}
+
                               </div>
 
                               <div className='form-group'>
                                   <label className='mb-3'>Faq Answer</label>
-                                  <textarea className='form-control' placeholder='Faq Answer' rows="6"> </textarea> 
+                                  <textarea className='form-control' placeholder='Faq Answer' rows="6" value={answer}
+                onChange={handleInputChangeanswer}/> 
+                                                  {answererror && <p className="text-red-500 text-sm mt-2">{answererror}</p>}
+
                               </div>
 
                           </div>
 
                     </div>
                     <div class="modal-footer">             
-                      <button type="button" class="btn btn-primary">Add</button>
+                      <button type="button" class="btn btn-primary"  onClick={save}>Add</button>
                       <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
@@ -297,19 +388,19 @@ const FaqManagement = () => {
 
                               <div className='form-group mb-3'>
                                   <label className='mb-3'>Faq Question</label>
-                                  <input className='form-control' value='What is the return policy?' />
+                                  <input className='form-control' value={question} />
                               </div>
 
                               <div className='form-group'>
                                   <label className='mb-3'>Faq Answer</label>
-                                  <textarea className='form-control' rows="6"> </textarea> 
+                                  <textarea className='form-control' rows="6" value={answer}/>
                               </div>
 
                           </div>
 
                     </div>
                     <div class="modal-footer">             
-                      <button type="button" class="btn btn-primary">Edit</button>
+                    
                       <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
@@ -332,19 +423,21 @@ const FaqManagement = () => {
 
                               <div className='form-group mb-3'>
                                   <label className='mb-3'>Faq Question</label>
-                                  <input className='form-control' value='What is the return policy?' />
+                                  <input className='form-control' value={question}
+                onChange={handleInputChange}/>
                               </div>
 
                               <div className='form-group'>
                                   <label className='mb-3'>Faq Answer</label>
-                                  <textarea className='form-control' rows="6"> </textarea> 
+                                  <textarea className='form-control' rows="6" value={answer}
+                onChange={handleInputChangeanswer}/>
                               </div>
 
                           </div>
 
                     </div>
                     <div class="modal-footer">             
-                      <button type="button" class="btn btn-primary">Update</button>
+                      <button type="button" class="btn btn-primary"  onClick={update}>Update</button>
                       <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
