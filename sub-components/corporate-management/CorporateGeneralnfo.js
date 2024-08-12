@@ -1,15 +1,16 @@
 // import node module libraries
 import Link from 'next/link';
-import { Col, Row, Card, Form } from 'react-bootstrap';
+import { Col, Row, Card, Form, Image } from 'react-bootstrap';
 
 const CorporateGeneralInfo = () => {
   return (
+    <>
     <div className="general-tabs-cntnt only-view">
     <div className="card">
       <div className="card-body">
       <div className="mb-6 d-flex justify-content-between align-items-center">
         <h4 className="mb-1">General Information</h4>
-        {/* <span class="individual-tag">Individual</span> */}
+        <button className='btn btn-outline-white' data-bs-toggle="modal" data-bs-target="#qrcode-mddl"> Generate QR Code</button>
      </div>
               
       <Form>
@@ -107,7 +108,34 @@ const CorporateGeneralInfo = () => {
       </div>
     </div>
                 
-</div>
+    </div>
+
+        {/* <!--Qr-code - Modal --> */}
+
+        <div class="modal fade" id="qrcode-mddl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Generated QR Code </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                          <div className="qrcode-mdl">
+                              <Image src="/images/qr-code.svg" alt="qr-code" />
+                          </div>
+                    </div>
+                    <div class="modal-footer">             
+                      <button type="button" class="btn btn-primary">Download</button>
+                      <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </>
+
+
+
+
   )
 }
 
