@@ -14,6 +14,9 @@ import UsersLocations from "sub-components/users-locations/UsersLocations";
 import UsersGeneralInfo from "sub-components/users-general-info/UsersGeneralnfo";
 import React, { useState, useEffect } from "react";
 
+import ElectricQuestionnaires from 'sub-components/questionnaires/ElectricQuestionnaires';
+import WaterQuestionnaires from 'sub-components/questionnaires/WaterQuestionnaires';
+
 const ViewUser = () => {
 
 const [user,setUsers] = useState('')
@@ -374,106 +377,37 @@ console.log(id);
                 {/* Questionnaires-tab-start*/}
 
                 <div class="tab-pane fade" id="v-pills-questions" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
-                  <div className='questions-tab-cntnt'>
-            <div className='card'>
-                <div className='card-body'>
-                    <div className='question-header'>
-                        <div>
-                            <h4>Users's Summary</h4>
-                        </div>             
-                        
-                        <div className='dvs-smmry'>
-                            <div className='smmry-item'>
-                                <h4>{consumption?.no_of_rooms} </h4>
-                                <p>{consumption?.room_type}</p>
-                            </div>
+                    <div className='questions-tab-cntnt'>
 
-                            <div className='smmry-item'>
-                                <h4>{consumption?.total_device_count}</h4>
-                                <p>Devices</p>
-                            </div>
 
-                            <div className='smmry-item'>
-                                <h4>{consumption?.total_consumption}</h4>
-                                <p>KWH</p>
-                            </div>
-                        </div>  
-                    </div>
+               {/* nav */}
 
-                       {/* nav */}
-
-                       <div className='questions-tabs cstm-accordian'>
+               <div className='questions-tabs cstm-accordian'>
                             <nav className='cstm-tabs'>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#electricity" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Electricity</button>
-                                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#water" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" disabled>Water</button>
+                                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#water" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Water</button>
                                     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#commute" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" disabled>Commute</button>
                                 </div>
                             </nav>
 
                             <div class="tab-content" id="nav-tabContent">
+
+
                                 <div class="tab-pane fade show active" id="electricity" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                                    <div className='electricity-ques'>
-                                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                 Do you live in a...
-                                            </button>
-                                            </h2>
-                                            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">{capitalizeFirstLetter(consumption?.house_type)}</div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                                How many people in your home? 
-                                            </button>
-                                            </h2>
-                                            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">{consumption?.no_of_people}</div>
-                                            </div>
-                                        </div>
-                                            <div class="accordion-item">
-                                                    <h2 class="accordion-header">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                                    How many rooms do you have?
-                                                    </button>
-                                                    </h2>
-                                                    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body">{consumption?.no_of_rooms} {consumption?.room_type}</div>
-                                            </div>
-
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                                    How many of these appliances are in each room?
-                                                    </button>
-                                                    </h2>
-
-                                                    <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body">
-                                                        <div className='appliances-list' >
-                                                        {consumption?.appliances?.map((item, index) => (
-                                                            <p>{item.room_name}: <span><strong>{item.device_count}</strong></span></p>
-                                                         ))}
-                                                        </div>
-                                                                                                
-                                                    </div>
-                                                    </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                {/* Electricity-Questions-Content */}         
+                                   <ElectricQuestionnaires/>
                                 </div>
-                                <div class="tab-pane fade" id="water" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
+
+                                <div class="tab-pane fade" id="water" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                                    <WaterQuestionnaires/>
+                                </div>
                                 <div class="tab-pane fade" id="commute" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+
                             </div>
+
                         </div>
-                </div>
-            </div>
-        </div>  
+        </div>
                 </div>
                        
                </div>

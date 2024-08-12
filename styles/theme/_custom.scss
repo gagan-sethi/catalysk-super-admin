@@ -243,7 +243,7 @@
     }
 
 .cstm-accordian{
-    margin: 30px auto;
+    margin: 0px auto;
     .accordion{
         margin-top: 15px;
 
@@ -287,11 +287,35 @@
 
 .cstm-tabs{
     .nav-link{
-        font-size: 16px;      
+        font-size: 16px;
+        border: none;
+        &:focus-within{
+            box-shadow: none;
+            outline: none;
+            border: none;
+
+            }   
     }
 
     .nav-link.active{
         font-weight: 500;
+        border: none;
+        background: transparent;
+        border-bottom: 2px solid #373737;
+        position: relative;
+
+        &:after{
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);        
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 10px 0 10px;
+            border-color: #373737 transparent transparent transparent;
+        }
     }
     
     .tab-content{
@@ -324,13 +348,16 @@
     align-items: center;
     gap: 50px;
     justify-content: center;
+    padding: 25px 0px;
+
     .khw-card{
         width: 180px;
         background-color: #fff;
-        padding: 15px;
-        border-radius: 15px;
+        padding: 10px;
+        border-radius: 12px;
         box-shadow: 0px 0px 4px #c1c1c1;
-        height: 150px;
+        height: auto;
+        text-align: center;
 
         img{
             width: 80px;
@@ -338,17 +365,10 @@
             object-fit: contain;
         }
 
-        h4{
-            font-size: 36px;
-            font-weight: 700;
-            line-height: 42px;
-        }
-
-        p{
-            
+      
         }
         }
-    }
+    
 
     .actions-bttns{
         display: flex;
@@ -378,4 +398,93 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    } 
+
+    .card-bg{
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 0 4px #c1c1c1;
+    }
+
+    .answer-card{
+        min-height: 138px;
+        img{
+            width: 100%;
+            height: 110px;
+            object-fit: contain;
+        }
+
+        h4{
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 42px;
+        }
+
+        h4.givenAns{
+            font-size: 22px;
+
+        }
+
+        p.givenQue{
+            font-size: 16px;
+
+        }
+
+        p{
+            margin: 0px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+
+    .applince-list{
+        padding: 0px;
+        list-style: none;
+        li{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0px;
+            border-bottom: 1px solid #c1c1c1;
+
+            .appli-nme{
+                font-size: 16px;
+            }
+
+            .appli-qty{
+                font-size: 18px;
+                font-weight: 700;
+                color: #373737;
+            }
+        }
+    }
+
+
+    .ck-editor__editable{
+        min-height: 250px;
+
+    }
+
+    // 12/08/2024
+
+    .appli-nme-sub{
+        font-size: 14px !important;
+        margin-top: 7px !important;
+    }
+
+    .kwh-mdl{
+        .appli-qty{
+            font-size: 16px !important;
+           
+        }
+    }
+
+    .uppr-card{
+        &:hover{
+            cursor: pointer;
+            box-shadow: 0px 0px 10px 2px #c1c1c1;
+             transition: all 0.7s;
+         
+        }
     }

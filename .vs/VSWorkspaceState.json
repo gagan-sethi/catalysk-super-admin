@@ -2,10 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\(dashboard)",
-    "\\app\\(dashboard)\\pages",
-    "\\app\\(dashboard)\\pages\\users-management"
+    "\\routes"
   ],
-  "SelectedNode": "\\app\\(dashboard)\\pages\\users-management\\page.js",
   "PreviewInSolutionExplorer": false
 }
