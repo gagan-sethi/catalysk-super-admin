@@ -471,3 +471,15 @@
     transition: all 0.7s;
   }
 }
+
+
+// Reports Management 13 Aug
+.reportItem {
+  display: flex;
+  padding: 1rem 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #dfe5ef;
+  border-radius: 7px;
+  margin-bottom: 1.5rem;
+}
