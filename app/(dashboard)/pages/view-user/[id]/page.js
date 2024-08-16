@@ -21,6 +21,8 @@ const ViewUser = () => {
 
 const [user,setUsers] = useState('')
 const [consumption,setConsumtion] = useState('')
+const [waterconsumption,setConsumtionwater] = useState('')
+
 const [location,setLocation] = useState([])
 const [locData,setLocationdata] = useState('')
 
@@ -65,6 +67,34 @@ console.log(id);
         console.log(data)
         if(res.ok){
             setUsers(data.data[0])
+        }
+
+ 
+  }
+
+
+      const getconsumptionforwater = async () => {
+   const urlObj = typeof window !== "undefined" ? new URL(window.location.href) : '';
+
+   const pathname =  urlObj ? urlObj.pathname : '';
+const id = pathname.split('/').pop();
+console.log(id); 
+
+                        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
+
+     const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/waterConsumption/${id}`, {
+          method: 'GET',
+          headers: {
+          'Authorization': `Bearer ${token}`,
+
+        }
+        
+        });
+        const data = await res.json();
+        console.log(data)
+        if(res.ok){
+            setConsumtionwater(data.data)
+
         }
 
  
@@ -129,6 +159,7 @@ console.log(id);
     getuserList();
     getlocation();
     getconsumption();
+    getconsumptionforwater()
   }, [])
 
 
@@ -185,7 +216,7 @@ console.log(id);
             <Form.Control type="email" value={user?.email}/>
           </Col>
         </Row>
-        <Row className="mb-3">
+       {/* <Row className="mb-3">
         <Form.Label className="col-sm-4 col-form-label form-label" htmlFor="email">Corporate Email</Form.Label>
           <Col md={8} xs={12} className="position-relative">
             <Form.Control type="email" value="ginger@gmail.com" />
@@ -199,13 +230,13 @@ console.log(id);
             <Form.Control type="email" value="1999" />                                     
           </Col>
         </Row>
-        {/* row */}
+       
         <Row className="mb-3">
           <Form.Label className="col-sm-4" htmlFor="phone">Phone Number</Form.Label>
           <Col md={8} xs={12}>
             <Form.Control type="text" value="+91-9874656396"  />
           </Col>
-        </Row>
+        </Row>*/}
 
         <Row className="mb-3">
           <Form.Label className="col-sm-4" htmlFor="phone">Status</Form.Label>
@@ -214,7 +245,7 @@ console.log(id);
           </Col>
         </Row>
 
-        <Row className="mb-3">
+       {/* <Row className="mb-3">
           <Form.Label className="col-sm-4" htmlFor="phone">Last Login Date</Form.Label>
           <Col md={8} xs={12}>
             <Form.Control type="text" value="19/03/2023" />
@@ -226,7 +257,7 @@ console.log(id);
           <Col md={8} xs={12}>
             <Form.Control type="text" value="198.172.3.2" />
           </Col>
-        </Row>
+        </Row>*/}
       </Form>
 
        
@@ -406,7 +437,7 @@ console.log(id);
                     <div className='col-sm-4'>
                         <div className='answer-card card-bg uppr-card' data-bs-toggle="modal" data-bs-target="#bhk-mddl">
                             <img src="/images/bhk.svg" />  
-                            <h4>3.5</h4>
+                            <h4>{consumption?.no_of_rooms}</h4>
                             <p>BHK</p>
                         </div>  
                     </div>
@@ -414,7 +445,7 @@ console.log(id);
                     <div className='col-sm-4'>
                         <div className='answer-card card-bg uppr-card'  data-bs-toggle="modal" data-bs-target="#devices-mddl">
                             <img src="/images/elec-devices.jpg" />  
-                            <h4>15</h4>
+                            <h4>{consumption?.total_device_count}</h4>
                             <p>Devices</p>
                         </div>  
                     </div>
@@ -422,21 +453,21 @@ console.log(id);
                     <div className='col-sm-4' >
                         <div className='answer-card card-bg uppr-card' data-bs-toggle="modal" data-bs-target="#kwh-mddl">
                             <img src="/images/kwh.jpg" />  
-                            <h4>400</h4>
+                            <h4>{consumption?.total_consumption}</h4>
                             <p>KWH</p>
                         </div>  
                     </div>
 
                     <div className='col-sm-4'>
                         <div className='answer-card card-bg'>
-                            <h4 className='givenAns'>Apartment</h4>
+                            <h4 className='givenAns'>{capitalizeFirstLetter(consumption?.house_type)}</h4>
                             <p className='givenQue'>Do you live in a..</p>
                         </div>  
                     </div>
 
                     <div className='col-sm-4'>
                         <div className='answer-card card-bg'>
-                            <h4 className='givenAns'>6</h4>
+                            <h4 className='givenAns'>{consumption?.no_of_people}</h4>
                             <p className='givenQue'>                                                
                                 How many people in your home? 
                             </p>
@@ -445,7 +476,7 @@ console.log(id);
 
                     <div className='col-sm-4'>
                         <div className='answer-card card-bg'>
-                            <h4 className='givenAns'>3.5 BHK</h4>
+                            <h4 className='givenAns'>{consumption?.no_of_rooms} BHK</h4>
                             <p className='givenQue'>                                                   
                                     How many rooms do you have?
                             </p>
@@ -458,40 +489,42 @@ console.log(id);
                     </div>   
 
                     <div className='row row-gap-5'>                                               
-
+                     {consumption?.rooms_detail?.map((item, index) => (
                     <div className='col-sm-4'>
                         <div className='answer-card card-bg'>
-                            <h4 className='givenAns'>Living Room</h4>
+                            <h4 className='givenAns'>{item.name}</h4>
                             <ul className='applince-list'>
                                 <li>
                                     <div>
                                         <p className='appli-nme'>Lights</p>
-                                        <p className='appli-nme-sub'>2 CFLs , 1 Tubelight ,  2 Incandescent</p>
+                                        <p className='appli-nme-sub'>{item.incandecentbulb} Incandescent bulbs, {item.ledbulb} LED bulbs,
+                                     {item.cflbulb} CFL bulb, {item.fluorescenttube} Incandescent tube, {item.ledtube} LED tube, {item.unknownbulb} Unknown bulb, {item.unknowntube} Unknown tube</p>
                                     </div>
-                                    <span className='appli-qty'>05</span>
+                                    <span className='appli-qty'>{item.lights}</span>
                                 </li>
 
                                 <li>
                                     <div>
                                         <p className='appli-nme'>Fans</p>
-                                        <p className='appli-nme-sub'>2 BLDC , 1 AC</p>
+                                        <p className='appli-nme-sub'>{item.acfan} AC-Powered fans, {item.bldcfan} BLDC fans</p>
                                     </div>                                    
-                                    <span className='appli-qty'>03</span>
+                                    <span className='appli-qty'>{item.fans}</span>
                                 </li>
 
                                 <li>
                                      <div>
                                         <p className='appli-nme'>Air conditioners</p>
-                                        <p className='appli-nme-sub'>1 Split AC, 2 Window AC
+                                        <p className='appli-nme-sub'>{item.splitac} Split air conditioners, {item.windowac} Window air conditioners
                                         </p>
                                     </div>
-                                    <span className='appli-qty'>03</span>
+                                    <span className='appli-qty'>{item.acs}</span>
                                 </li>
                             </ul>
                         </div>  
                     </div>
+                    ))}
 
-                    <div className='col-sm-4'>
+                  {/*  <div className='col-sm-4'>
                         <div className='answer-card card-bg'>
                             <h4 className='givenAns'>Bedroom-01</h4>
                             <ul className='applince-list'>
@@ -617,7 +650,7 @@ console.log(id);
                                 </li>
                             </ul>
                         </div>  
-                    </div>
+                    </div> */}
 
                 </div> 
 
@@ -635,32 +668,39 @@ console.log(id);
                         <div className="modal-body">
                         <div className='answer-card'>
                             <h4 className='givenAns'>Appliances Details</h4>
+
+                             {consumption?.rooms_detail?.map((item, index) => (
                             <ul className='applince-list'>
+
+                            {item.name}
                                 <li>
                                     <div>
                                         <p className='appli-nme'>Lights</p>
-                                        <p className='appli-nme-sub'>2 CFLs , 1 Tubelight ,  2 Incandescent</p>
+                                        <p className='appli-nme-sub'>{item.incandecentbulb} Incandescent bulbs, {item.ledbulb} LED bulbs,
+                                     {item.cflbulb} CFL bulb, {item.fluorescenttube} Incandescent tube, {item.ledtube} LED tube, {item.unknownbulb} Unknown bulb, {item.unknowntube} Unknown tube</p>
                                     </div>
-                                    <span className='appli-qty'>05</span>
+                                    <span className='appli-qty'>{item.lights}</span>
                                 </li>
 
                                 <li>
                                     <div>
                                         <p className='appli-nme'>Fans</p>
-                                        <p className='appli-nme-sub'>2 BLDC , 1 AC</p>
+                                        <p className='appli-nme-sub'>{item.acfan} AC-Powered fans, {item.bldcfan} BLDC fans</p>
                                     </div>                                    
-                                    <span className='appli-qty'>03</span>
+                                    <span className='appli-qty'>{item.fans}</span>
                                 </li>
 
                                 <li>
                                      <div>
                                         <p className='appli-nme'>Air conditioners</p>
-                                        <p className='appli-nme-sub'>1 Split AC, 2 Window AC
+                                        <p className='appli-nme-sub'>{item.acfan} AC-Powered fans, {item.bldcfan} BLDC fans
                                         </p>
                                     </div>
-                                    <span className='appli-qty'>03</span>
+                                    <span className='appli-qty'>{item.acs}</span>
                                 </li>
                             </ul>
+
+                            ))}
                         </div> 
                         </div>
                         <div className="modal-footer">             
@@ -681,30 +721,18 @@ console.log(id);
                         <div className='answer-card'>
                             <h4 className='givenAns'>KWH Details</h4>
                             <ul className='applince-list kwh-mdl'>
-                                <li>
-                                    <span className='appli-nme'>Living Room</span>
-                                    <span className='appli-qty'>100 kWH</span>
-                                </li>
 
+                              {consumption?.rooms_detail?.map((item, index) => (
                                 <li>
-                                    <span className='appli-nme'>Bedroom-1</span>
-                                    <span className='appli-qty'>70 KWH</span>
+                                    <span className='appli-nme'>{item.name}</span>
+                                    <span className='appli-qty'>{item.acfanConsumption +
+                      item.bldcfanConsumption +item.cflbulbConsumption + item.fluorescenttubeConsumption+item.incandecentbulbConsumption+item.ledbulbConsumption+item.ledtubeConsumption+item.splitacConsumption+
+                      item.unknownbulbConsumption+item.unknownfanConsumption + item.unknowntubeConsumption +item.windowacConsumption} kWH</span>
                                 </li>
+                                ))}
 
-                                <li>
-                                    <span className='appli-nme'>Bedroom-2</span>
-                                    <span className='appli-qty'>70 KWH</span>
-                                </li>
-
-                                <li>
-                                    <span className='appli-nme'>Staff Room</span>
-                                    <span className='appli-qty'>80 KWH</span>
-                                </li>
-
-                                <li>
-                                    <span className='appli-nme'>Rest of the house</span>
-                                    <span className='appli-qty'>60 KWH</span>
-                                </li>
+                              
+                              
                             </ul>
                         </div> 
                         </div>
@@ -726,20 +754,14 @@ console.log(id);
                         <div className='answer-card'>
                             <h4 className='givenAns'>BHK Details</h4>
                             <ul className='applince-list kwh-mdl'>
-                                <li>
-                                    <span className='appli-nme'>Living Room</span>
-                                    <span className='appli-qty'>01</span>
-                                </li>
 
+                             {consumption?.rooms_detail?.map((item, index) => (
                                 <li>
-                                    <span className='appli-nme'>Bedroom</span>
-                                    <span className='appli-qty'>02</span>
+                                    <span className='appli-nme'>{item.name}</span>
+                                    <span className='appli-qty'>{item.lights + item.acs + item.fans}</span>
                                 </li>
-
-                                <li>
-                                    <span className='appli-nme'>Staff Room</span>
-                                    <span className='appli-qty'>02</span>
-                                </li>                               
+                                ))}
+                                                    
                             </ul>
                         </div> 
                         </div>
