@@ -1,17 +1,13 @@
 "use client";
 // import node module libraries
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
-
+import { Container } from "react-bootstrap";
 // import widget as custom components
 import { PageHeading } from "widgets";
-
 // import subcomponents
-
-import Head from "next/head";
 import Questionnaires from "sub-components/questionnaires/Questionnaires";
 import SparksGained from "sub-components/sparks-gained/SparksGained";
-import UsersLocations from "sub-components/users-locations/UsersLocations";
 import UsersGeneralInfo from "sub-components/users-general-info/UsersGeneralnfo";
+import UsersLocations from "sub-components/users-locations/UsersLocations";
 
 const ViewUser = () => {
   return (
@@ -27,8 +23,7 @@ const ViewUser = () => {
                 class="nav flex-column nav-pills"
                 id="v-pills-tab"
                 role="tablist"
-                aria-orientation="vertical"
-              >
+                aria-orientation="vertical">
                 <button
                   class="nav-link active"
                   id="v-pills-home-tab"
@@ -37,8 +32,7 @@ const ViewUser = () => {
                   type="button"
                   role="tab"
                   aria-controls="v-pills-home"
-                  aria-selected="true"
-                >
+                  aria-selected="true">
                   General Information
                 </button>
                 <button
@@ -49,8 +43,7 @@ const ViewUser = () => {
                   type="button"
                   role="tab"
                   aria-controls="v-pills-profile"
-                  aria-selected="false"
-                >
+                  aria-selected="false">
                   Location
                 </button>
                 <button
@@ -61,21 +54,19 @@ const ViewUser = () => {
                   type="button"
                   role="tab"
                   aria-controls="v-pills-messages"
-                  aria-selected="false"
-                >
+                  aria-selected="false">
                   Sparks Gained
                 </button>
                 <button
                   class="nav-link"
-                  
+
                   id="v-pills-settings-tab"
                   data-bs-toggle="pill"
                   data-bs-target="#v-pills-questions"
                   type="button"
                   role="tab"
                   aria-controls="v-pills-settings"
-                  aria-selected="false"
-                >
+                  aria-selected="false">
                   Questionnaires
                 </button>
               </div>
@@ -88,8 +79,7 @@ const ViewUser = () => {
                   id="v-pills-general"
                   role="tabpanel"
                   aria-labelledby="v-pills-home-tab"
-                  tabindex="0"
-                >
+                  tabindex="0">
                   <UsersGeneralInfo />
                 </div>
 
@@ -100,8 +90,7 @@ const ViewUser = () => {
                   id="v-pills-locations"
                   role="tabpanel"
                   aria-labelledby="v-pills-profile-tab"
-                  tabindex="0"
-                >
+                  tabindex="0">
                   <UsersLocations />
                 </div>
 
@@ -112,8 +101,7 @@ const ViewUser = () => {
                   id="v-pills-sparks"
                   role="tabpanel"
                   aria-labelledby="v-pills-messages-tab"
-                  tabindex="0"
-                >
+                  tabindex="0">
                   <SparksGained />
                 </div>
 
@@ -124,8 +112,7 @@ const ViewUser = () => {
                   id="v-pills-questions"
                   role="tabpanel"
                   aria-labelledby="v-pills-settings-tab"
-                  tabindex="0"
-                >
+                  tabindex="0">
                   <Questionnaires />
                 </div>
               </div>
@@ -142,8 +129,7 @@ const ViewUser = () => {
           id="sparks-update"
           tabindex="-1"
           aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+          aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -154,8 +140,8 @@ const ViewUser = () => {
                   type="button"
                   class="btn-close"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  aria-label="Close">
+                </button>
               </div>
               <div class="modal-body">
                 <div className="update-sparks-mdl">
@@ -163,8 +149,7 @@ const ViewUser = () => {
                     <label className="mb-2">Sparks Amount</label>
                     <input
                       className="form-control"
-                      placeholder="Enter Amount"
-                    />
+                      placeholder="Enter Amount" />
                   </div>
                   <div className="form-group mt-2">
                     <label className="mb-2">Reason</label>
@@ -185,8 +170,7 @@ const ViewUser = () => {
                 <button
                   type="button"
                   class="btn btn-primary"
-                  data-bs-dismiss="modal"
-                >
+                  data-bs-dismiss="modal">
                   Close
                 </button>
               </div>
