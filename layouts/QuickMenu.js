@@ -38,6 +38,9 @@ const [profile,setProfile] =useState('')
   }, []);
 
     const getProfile = async () => {
+        try{
+
+        
    
      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/getProfile`, {
           method: 'GET',
@@ -52,7 +55,9 @@ const [profile,setProfile] =useState('')
 
         setProfile(data.data)
 
-  
+    }catch(error){
+        console.log(error.message)
+    }
 
 
   }

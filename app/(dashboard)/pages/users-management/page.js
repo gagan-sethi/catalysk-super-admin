@@ -37,11 +37,21 @@ const UsersList = () => {
     setIsVisible(!isVisible);
   };
 
-    useEffect(() => {
-    getdoc()
-  }, [currentPage, search])
 
-                        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
+
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    // Only runs on the client-side
+    const tokenFromLocalStorage = localStorage.getItem('token');
+    setToken(tokenFromLocalStorage || '');
+  }, []);
+
+
+  useEffect(() => {
+    getdoc()
+  }, [currentPage, search,token])
+      //  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
 
                         function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
@@ -73,6 +83,7 @@ const UsersList = () => {
 
 
     async function handleInputChangenew  (e)  {
+
     console.log(new Date(e.target.value).toISOString())
     const dateadded= new Date(e.target.value).toISOString()
      setCurrentPage(1);
@@ -130,11 +141,11 @@ const UsersList = () => {
        }
 
        
-        async function blockallusers  ()  {
+    async function blockallusers  ()  {
      console.log(selectedItem)
  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/blockAllUser`, {
  
- method: 'PATCH',
+          method: 'PATCH',
           headers: {
           'Authorization': `Bearer ${token}`,
 
@@ -226,7 +237,7 @@ const UsersList = () => {
    }
   };
     async function onChangeselecttype (e)  {
-          
+          i
       setCurrentPage(1);
        const offset = (currentPage - 1) * pageSize;
       const limit = pageSize;
@@ -247,7 +258,7 @@ const UsersList = () => {
         if(res.ok){
             setUsers(data.data)
             setTotalItems(data?.count);
-      setentry(data?.data?.length + offset);
+          setentry(data?.data?.length + offset);
       }
   }
   
@@ -274,12 +285,12 @@ const UsersList = () => {
         if(res.ok){
             setUsers(data.data)
             setTotalItems(data?.count);
-      setentry(data?.data?.length + offset);
+            setentry(data?.data?.length + offset);
       }
   }
 
 
-  function checkboxHandler(e){
+    function checkboxHandler(e){
         let isSelected = e.target.checked
         let value = e.target.value
 
@@ -456,7 +467,7 @@ const UsersList = () => {
                     </thead>
                     <tbody>
 
-                     {users.map((tdata, index) => (
+                     {users?.map((tdata, index) => (
                       <tr>
                         <td> <input type="checkbox"  checked={selectedItem.includes(tdata._id)} class="form-check-input" value={tdata._id} onChange={checkboxHandler}/> </td>               
                         <th scope="row">{index+1}</th>
