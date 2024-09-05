@@ -93,6 +93,15 @@ export const DashboardMenu = [
 	},
 	{
 		id: uuid(),
+		title: 'Catalogue',
+		icon: 'edit',
+		children: [
+			{ id: uuid(), link: '/pages/electricity-catalogue', name: 'Electricity' },
+			{ id: uuid(), link: '/pages/terms-conditions', name: 'Water' },
+		]
+	},
+	{
+		id: uuid(),
 		title: 'Challenges Management',
 		icon: 'pocket',
 		link: '#'

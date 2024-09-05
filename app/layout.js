@@ -1,5 +1,5 @@
-// import theme style scss file
 import { Toaster } from "react-hot-toast";
+import 'rsuite/dist/rsuite.min.css';
 import "styles/theme.scss";
 
 export const metadata = {

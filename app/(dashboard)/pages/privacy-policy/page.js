@@ -105,7 +105,8 @@ const PrivacyPolicy = () => {
    if(!heading){
    setheadingError('Please enter someting...')
    return
-   }else if(!content){  setContentError('Please enter someting...')
+   }else if(!content){
+  setContentError('Please enter someting...')
    return
 
    }else{
