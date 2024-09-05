@@ -16,6 +16,7 @@ import React, { useState, useEffect } from "react";
 
 import ElectricQuestionnaires from "sub-components/questionnaires/ElectricQuestionnaires";
 import WaterQuestionnaires from "sub-components/questionnaires/WaterQuestionnaires";
+import CommuteQuestionnaires from "sub-components/questionnaires/CommuteQuestionnaires";
 
 const ViewUser = () => {
   const [user, setUsers] = useState("");
@@ -631,7 +632,6 @@ const ViewUser = () => {
                             role="tab"
                             aria-controls="nav-contact"
                             aria-selected="false"
-                            disabled
                           >
                             Commute
                           </button>
@@ -1198,7 +1198,7 @@ const ViewUser = () => {
                           aria-labelledby="nav-contact-tab"
                           tabindex="0"
                         >
-                          ...
+                          <CommuteQuestionnaires />
                         </div>
                       </div>
                     </div>
