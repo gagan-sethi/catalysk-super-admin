@@ -1,4 +1,4 @@
-// import theme style scss file
+import 'rsuite/dist/rsuite.min.css';
 import "styles/theme.scss";
 
 export const metadata = {

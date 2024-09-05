@@ -53,6 +53,7 @@
   justify-content: end;
   padding: 15px 0px;
   padding-bottom: 0px;
+
   .pagination {
     margin: 0px;
   }
@@ -66,6 +67,7 @@
   padding-bottom: 20px;
   margin: 0px 0px 20px 0px;
   border-bottom: 1px solid #c1c1c1;
+
   .flxx {
     display: flex;
     justify-content: space-between;
@@ -83,6 +85,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
+
     .stts-flter {
       width: 220px;
     }
@@ -92,6 +95,7 @@
 .myform {
   .form-group {
     margin-bottom: 15px;
+
     label {
       margin-bottom: 10px;
     }
@@ -108,10 +112,12 @@
     padding: 10px;
     background-color: #fff;
     gap: 15px;
+
     .nav-link {
       text-align: left;
     }
   }
+
   .tab-content {
     width: 80%;
   }
@@ -165,6 +171,7 @@
 
 .sparks-history {
   margin-top: 35px;
+
   .spark-date {
     h6 {
       font-size: 15px;
@@ -172,6 +179,7 @@
       margin-bottom: 5px;
       white-space: nowrap;
     }
+
     p {
       font-size: 14px;
       font-weight: 600;
@@ -183,9 +191,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
     img {
       width: 38px;
     }
+
     p {
       font-size: 16px;
       font-weight: 600;
@@ -241,6 +251,7 @@
 
 .cstm-accordian {
   margin: 0px auto;
+
   .accordion {
     margin-top: 15px;
 
@@ -266,6 +277,7 @@
       filter: invert(1);
     }
   }
+
   .tab-content {
     width: 100%;
   }
@@ -283,6 +295,7 @@
   .nav-link {
     font-size: 16px;
     border: none;
+
     &:focus-within {
       box-shadow: none;
       outline: none;
@@ -364,6 +377,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+
   span {
     i {
       width: 30px;
@@ -398,6 +412,7 @@
 
 .answer-card {
   min-height: 138px;
+
   img {
     width: 100%;
     height: 110px;
@@ -428,6 +443,7 @@
 .applince-list {
   padding: 0px;
   list-style: none;
+
   li {
     display: flex;
     align-items: center;
@@ -482,4 +498,48 @@
   border: 1px solid #dfe5ef;
   border-radius: 7px;
   margin-bottom: 1.5rem;
+}
+
+
+// Catalogue
+.catalogueImg {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  background-color: black;
+}
+
+.CatalogueProductImg {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.customUploaderWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
+}
+
+.customUploaderWrap label {
+  background-color: #373737;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.customUploaderWrap label input[type=file] {
+  display: none;
+}
+.copyBtn{
+  height: 40px;
+  width: 40px;
+  background-color: #373737;
+  color: white;
+  border-radius: 0;
+  border: unset;
 }
