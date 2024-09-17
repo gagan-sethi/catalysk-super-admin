@@ -97,7 +97,7 @@ export const DashboardMenu = [
 		icon: 'edit',
 		children: [
 			{ id: uuid(), link: '/pages/electricity-catalogue', name: 'Electricity' },
-			{ id: uuid(), link: '/pages/terms-conditions', name: 'Water' },
+			{ id: uuid(), link: '/pages/water-catalogue', name: 'Water' },
 		]
 	},
 	{

@@ -1,5 +1,5 @@
 import React from "react";
-import MyComponent from "./dropdown";
+
 
 const Pagination = ({
   totalItems,
@@ -72,7 +72,8 @@ const Pagination = ({
                   onClick={prevPage}
                   disabled={currentPage ==1}
                 >
-                  &laquo;
+                  {/* &laquo; */}
+                  Previous
                 </button>
               </li>
 
@@ -130,7 +131,8 @@ const Pagination = ({
 
               <li className="page-item">
                 <button className="page-link text-dark" onClick={nextPage}>
-                  &raquo;
+                  {/* &raquo; */}
+                  Next
                 </button>
               </li>
             </ul>

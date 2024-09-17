@@ -161,10 +161,10 @@ const WaterQuestionnaires = () => {
             <div className="col-sm-4">
               <div className="answer-card card-bg">
                 <h4 className="givenAns">
-                  Taps ({Number(waterconsumption?.tap_water_flow_per_minute).toFixed(2)}l/m)
+                  Taps ({Number(waterconsumption?.tap_water_flow_per_minute ||0).toFixed(2)}l/m)
                 </h4>
                 <h4 className="givenAns">
-                  Showers ({Number(waterconsumption?.shower_head_water_flow_per_minute).toFixed(2)}l/m)
+                  Showers ({Number(waterconsumption?.shower_head_water_flow_per_minute || 0).toFixed(2)}l/m)
                 </h4>
                 <p className="givenQue">
                   Let’s measure the time it takes to fill it
@@ -186,7 +186,7 @@ const WaterQuestionnaires = () => {
                     <div>
                       <p className="appli-nme">Taps</p>
                       <p className="appli-nme-sub">
-                        ({Number(waterconsumption?.tap_water_flow_per_minute).toFixed(2)}l/m)
+                        ({Number(waterconsumption?.tap_water_flow_per_minute ||0).toFixed(2)}l/m)
                       </p>
                     </div>
                     <span className="appli-qty">
@@ -198,7 +198,7 @@ const WaterQuestionnaires = () => {
                     <div>
                       <p className="appli-nme">Sower heads</p>
                       <p className="appli-nme-sub">
-                        ({Number(waterconsumption?.shower_head_water_flow_per_minute).toFixed(2)}l/m)
+                        ({Number(waterconsumption?.shower_head_water_flow_per_minute || 0).toFixed(2)}l/m)
                       </p>
                     </div>
                     <span className="appli-qty">

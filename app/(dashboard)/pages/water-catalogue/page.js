@@ -13,23 +13,22 @@ import { Form } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Pagination from "components/pagination/Pagination.js";
-import TubeLight from "components/electricitycatalog/viewelectricity/TubeLight";
-import Fan from "components/electricitycatalog/viewelectricity/Fan";
-import AirCondition from "components/electricitycatalog/viewelectricity/AirCondition";
-import Bulb from "components/electricitycatalog/viewelectricity/Bulb";
-import TubeLightEdit from "components/electricitycatalog/editelectricity/TubeLightEdit";
-import AirConditionEdit from "components/electricitycatalog/editelectricity/AirCondition";
-import BulbEdit from "components/electricitycatalog/editelectricity/BulbEdit";
-import FanEdit from "components/electricitycatalog/editelectricity/FanEdit";
 
-const ElectricityCatalogue = () => {
+import ToiletEdit from "components/watercatalog/editwater/ToiletEdit";
+import ShowerEdit from "components/watercatalog/editwater/ShowerEdit";
+import TapEdit from "components/watercatalog/editwater/TapEdit";
+import Tap from "components/watercatalog/viewwater/Tap";
+import Shower from "components/watercatalog/viewwater/Tap";
+import Toilet from "components/watercatalog/viewwater/Toilet";
+
+const WaterCatalogue = () => {
   const [excelModal, setExcelModal] = useState(false);
   const [excelFile, setExcelFile] = useState(null);
   const [zipFile, setZipFile] = useState(null);
   const [file, setFile] = useState(null);
-  const [electricItem, setElectricItem] = useState(null);
+  const [waterItem, setWaterItem] = useState(null);
   const [fileList, setFileList] = useState([]);
-  const [viewElectricProduct, setViewElectricProduct] = useState({});
+  const [viewWaterProduct, setViewWaterProduct] = useState({});
   const [pageRender, setPageRender] = useState(1);
   const router = useRouter();
   const modalRef = useRef();
@@ -38,10 +37,10 @@ const ElectricityCatalogue = () => {
   //  const { page } = router.query;
   const [firstRender, setFirstRender] = useState(0);
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState(router?.query?.search || "");
+  // const [search, setSearch] = useState(router?.query?.search || "");
   const [userId, setUserid] = useState("");
-  const [electricProductType, setElectricProductType] = useState(
-    router?.query?.type || "tubelight"
+  const [waterProductType, setWaterProductType] = useState(
+    router?.query?.type || "tap"
   );
   //pagination
   const [pageSize, setPageSize] = useState(5);
@@ -50,70 +49,58 @@ const ElectricityCatalogue = () => {
   const [currentPage, setCurrentPage] = useState(+router?.query?.page || 1);
   const [offsetentry, setoffsetentry] = useState(0);
   const [entry, setentry] = useState(0);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const handleSampleDownload = (fileName) => {
-    if (fileName == "airCondition") {
+    if (fileName == "tap") {
       // Excel file download
       const excelLink = document.createElement("a");
-      excelLink.href = "/sample-files/air_condition.xlsx";
-      excelLink.download = "air_condition.xlsx";
+      excelLink.href = "/sample-files/tap.xlsx";
+      excelLink.download = "tap.xlsx";
       document.body.appendChild(excelLink);
       excelLink.click();
       document.body.removeChild(excelLink);
-    } else if (fileName == "bulb") {
+    } else if (fileName == "toilet") {
       // Excel file download
       const excelLink = document.createElement("a");
-      excelLink.href = "/sample-files/bulb.xlsx";
-      excelLink.download = "bulb.xlsx";
+      excelLink.href = "/sample-files/toilet.xlsx";
+      excelLink.download = "toilet.xlsx";
       document.body.appendChild(excelLink);
       excelLink.click();
       document.body.removeChild(excelLink);
-    } else if (fileName == "fan") {
+    } else if (fileName == "shower") {
       // Excel file download
       const excelLink = document.createElement("a");
-      excelLink.href = "/sample-files/fan.xlsx";
-      excelLink.download = "fan.xlsx";
-      document.body.appendChild(excelLink);
-      excelLink.click();
-      document.body.removeChild(excelLink);
-    } else if (fileName == "tubeLight") {
-      // Excel file download
-      const excelLink = document.createElement("a");
-      excelLink.href = "/sample-files/tube_light.xlsx";
-      excelLink.download = "tube_light.xlsx";
+      excelLink.href = "/sample-files/shower.xlsx";
+      excelLink.download = "shower.xlsx";
       document.body.appendChild(excelLink);
       excelLink.click();
       document.body.removeChild(excelLink);
     }
   };
 
-  console.log("Button clicked!", search);
+  // console.log("Button clicked!", search);
   // if (file) {
   //   uploadFile(file);
   // } else {
   //   console.error("No file selected");
   // }
 
-  // console.log("hello",handleApi())
   async function handleUploadexcel() {
     if (!excelFile) return toast.error("select excel file");
-    if (!electricItem) return toast.error("select electric item required");
+    if (!waterItem) return toast.error("Select Water Equipment");
     console.log("excelFile", excelFile);
+    console.log("waterItem", waterItem);
     const formData = new FormData();
-
-    // formData.append("media", excelFile.blobFile);
     formData.append("media", fileList[0].blobFile);
 
     const response = await handleApi(
-      electricItem == "ac"
-        ? "catalogue/bulkUploadAcProduct"
-        : electricItem == "bulb"
-        ? "catalogue/bulkUploadBulbProduct"
-        : electricItem == "fan"
-        ? "catalogue/bulkUploadFanProduct"
-        : electricItem == "tubeLight"
-        ? "catalogue/bulkUploadTubelightProduct"
+      waterItem == "tap"
+        ? "catalogue/bulkUploadAeratorProduct"
+        : waterItem == "shower"
+        ? "catalogue/bulkUploadShowerRegulatorProduct"
+        : waterItem == "toilet"
+        ? "catalogue/bulkUploadToiletProduct"
         : "",
       "post",
       formData,
@@ -123,12 +110,12 @@ const ElectricityCatalogue = () => {
       router
     );
 
-    if (response?.code == "200") {
+    if (response.code == "200") {
       toast.success("Uploaded Successfully");
       console.log("upload success");
       setExcelFile(null);
       setFileList([]);
-      setElectricItem("");
+      setWaterItem("");
       const modalElement = modalRef.current;
       console.log("modalElement", modalElement);
       const modalInstance = bootstrap.Modal.getInstance(modalElement);
@@ -137,23 +124,22 @@ const ElectricityCatalogue = () => {
         modalInstance.hide();
       }
 
-      getElectricProduct();
+      getWaterProduct();
     }
-    setButtonLoader(false);
+    // setButtonLoader(false);
   }
 
   const handleFileChange = (files) => {
+    console.log("mainFile", files);
     if (files.length > 0) {
-      setFileList([files[files.length - 1]]); // Always take the last selected file
+      setFileList([files[files.length - 1]]);
     } else {
       setFileList([]);
     }
     if (files.length > 0) {
-      // Convert Blob to File if necessary
-      const file = files[0]; // If the `files` array contains Blob objects
+      console.log("files", files);
+      const file = files[0];
       console.log(file);
-      // Optionally, you can create a new File instance if you need to set metadata
-      // const file = new File([blob], 'filename.ext', { type: 'application/octet-stream' });
       setExcelFile(file);
     } else {
       setExcelFile(null);
@@ -178,13 +164,13 @@ const ElectricityCatalogue = () => {
       if (modalInstance) {
         modalInstance.hide();
       }
-      getElectricProduct();
+      getWaterProduct();
     }
   };
 
-  async function getElectricProduct() {
+  async function getWaterProduct() {
     console.log("hii run devv ");
-    // setLoading(true);
+    setLoading(true);
     const offset = (currentPage - 1) * pageSize;
     const limit = pageSize;
     setoffsetentry(offset);
@@ -192,8 +178,8 @@ const ElectricityCatalogue = () => {
     const params = {
       offset,
       limit,
-      type: electricProductType,
-      search: search || "",
+      type: waterProductType,
+      // search: search || "",
     };
 
     try {
@@ -208,71 +194,71 @@ const ElectricityCatalogue = () => {
       );
 
       if (response) {
-       
+        setLoading(false);
         setData(response?.data ?? []);
         setTotalItems(response?.count);
         setentry(response?.data.length + offset);
 
         router.push(
-          `/pages/electricity-catalogue?page=${currentPage}&search=${search}&type=${electricProductType}`
+          `/pages/water-catalogue?page=${currentPage}&type=${waterProductType}`
         );
       }
-  
+      setLoading(false);
     } catch (error) {
-
+      // console.error("Error fetching stores:", error);
+      setLoading(false);
     }
   }
 
   // Fetch data when currentPage changes
   useEffect(() => {
-    getElectricProduct();
-  }, [currentPage, pageSize, electricProductType, pageRender]);
+    getWaterProduct();
+  }, [currentPage, pageSize, waterProductType, pageRender]);
 
+  // Handle search input change with debounce
+  // useEffect(() => {
+  //   if (firstRender > 0) {
+  //     console.log("search",search)
+  //     let timeout;
+  //     timeout = setTimeout(() => {
+  //       if (+router?.query?.page == 1) {
+  //         getWaterProduct();
+  //       }
+  //       setCurrentPage(1);
+  //     }, 1000);
 
-  useEffect(() => {
-    if (firstRender > 0) {
-      console.log("search", search);
+  //     return () => clearTimeout(timeout);
+  //   }
+  // }, [search]);
+  // useEffect(() => {
+  //   if (firstRender > 0) {
+  //     // console.log("search", search);
 
-      const timeout = setTimeout(() => {
-        const currentPage = Number(router?.query?.page) || 1;
-        if (currentPage === 1) {
-          getElectricProduct();
-        }
-        setCurrentPage(1); // Update current page to 1
-      }, 1000);
+  //     const timeout = setTimeout(() => {
+  //       const currentPage = Number(router?.query?.page) || 1;
+  //       if (currentPage === 1) {
+  //         getWaterProduct();
+  //       }
+  //       setCurrentPage(1); // Update current page to 1
+  //     }, 1000);
 
-      // Cleanup function to clear the timeout if the component unmounts or before running a new effect
-      return () => clearTimeout(timeout);
-    }
-  }, [search]); // Dependency array with `search`
+  //     // Cleanup function to clear the timeout if the component unmounts or before running a new effect
+  //     return () => clearTimeout(timeout);
+  //   }
+  // }, [search]); // Dependency array with `search`
 
   useEffect(() => {
     setFirstRender(1);
   }, []);
 
-  // useEffect(() => {
-  //   if (router?.query?.page && currentPage == 1) {
-
-  //     setCurrentPage(+router?.query?.page);
-  //     if (router?.query?.search) {
-  //       setSearch(router?.query?.search);
-  //     }
-  //   }
-  // }, [router?.query?.page]);
-
-  console.log(excelFile);
+  console.log("excelFile", excelFile);
   console.log("fileList", fileList);
-  useEffect(() => {
-    // if (typeof window !== 'undefined') {
-    //   require('bootstrap/dist/js/bootstrap.bundle.min.js');
-    // }
-  }, []);
 
   return (
     <Container fluid className="p-6">
       <div className="d-flex justify-content-between align-items-center">
         {/* Page Heading */}
-        <PageHeading heading=" Electricity Catalogue" />
+        <PageHeading heading="Water Catalogue" />
         <div className="d-flex gap-2 align-items-center">
           {/* <select class="form-select" aria-label="Default select example">
             <option selected>Air Conditioners</option>
@@ -281,8 +267,8 @@ const ElectricityCatalogue = () => {
 
           </select> */}
 
-          <div className="search-bar">
-            {/* Search Form */}
+          {/* <div className="search-bar">
+          
             <Form
               style={{ width: "15rem" }}
               className="d-flex align-items-center width-100 ms-2"
@@ -293,23 +279,23 @@ const ElectricityCatalogue = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </Form>
-          </div>
+          </div> */}
           <select
             class="form-select"
             aria-label="Default select example"
-            value={electricProductType}
+            value={waterProductType}
             onChange={(e) => {
               console.log(e.target.value);
-              setElectricProductType(e.target.value);
+              setWaterProductType(e.target.value);
             }}
           >
             {/* <option value="" selected>
               Select Type Of Eletric Item
             </option> */}
-            <option value="bulb">Bulb</option>
-            <option value="tubelight">Tube Light</option>
-            <option value="fan">Fans</option>
-            <option value="ac">Air Conditioners</option>
+            <option value="toilet">Toilet</option>
+            {/* <option value="tubelight">Tube Light</option> */}
+            <option value="shower">Shower</option>
+            <option value="tap">Tap</option>
           </select>
           <button
             type="button"
@@ -332,7 +318,9 @@ const ElectricityCatalogue = () => {
                     <th scope="col">Sr. No.</th>
                     <th scope="col">Product Image</th>
                     <th scope="col">Brand</th>
-                    <th scope="col">Power consumption/hour</th>
+                    {waterProductType != "toilet" && (
+                      <th scope="col">Flow per minute</th>
+                    )}
                     <th scope="col">Price</th>
                     <th scope="col">Link</th>
                     <th scope="col">Action</th>
@@ -368,16 +356,23 @@ const ElectricityCatalogue = () => {
                             <td>
                               <p>{ele?.brand || ""}</p>
                             </td>
-                            <td>
-                              <p>{ele?.watt_per_hour || ""}</p>
-                            </td>
+
+                            {waterProductType != "toilet" && (
+                              <td>
+                                <p>{ele?.flow_litre_per_minute || ""}</p>
+                              </td>
+                            )}
+
                             <td>
                               <p>{ele?.price || ""}</p>
                             </td>
                             <td>
                               <div className="actions-bttns">
                                 {!Array.isArray(ele?.product_link) ? (
-                                  <Link href={ele?.product_link ?? "#"}>
+                                  <Link
+                                    href={ele?.product_link ?? "#"}
+                                    target="_blank"
+                                  >
                                     <span>
                                       <i className="fe fe-link"></i>
                                     </span>
@@ -400,7 +395,7 @@ const ElectricityCatalogue = () => {
                                 <span
                                   data-bs-toggle="modal"
                                   data-bs-target="#view-mddl"
-                                  onClick={() => setViewElectricProduct(ele)}
+                                  onClick={() => setViewWaterProduct(ele)}
                                 >
                                   {" "}
                                   <i className="fe fe-eye"></i>
@@ -408,7 +403,7 @@ const ElectricityCatalogue = () => {
                                 <span
                                   data-bs-toggle="modal"
                                   data-bs-target="#edit-mddl"
-                                  onClick={() => setViewElectricProduct(ele)}
+                                  onClick={() => setViewWaterProduct(ele)}
                                 >
                                   {" "}
                                   <i className="fe fe-edit"></i>
@@ -426,14 +421,7 @@ const ElectricityCatalogue = () => {
                           </tr>
                         </>
                       ))
-                    :  (
-              <div
-                style={{ minHeight: "31rem" }}
-                className="w-100 h-100 d-flex justify-content-center align-items-center opacity-50 "
-              >
-                <h4>No Data Available</h4>
-              </div>
-            )}
+                    : ""}
                   {/* <tr>
                     <td scope="row">02</td>
                     <td>
@@ -629,7 +617,7 @@ const ElectricityCatalogue = () => {
                 data-bs-dismiss="modal"
                 onClick={() => {
                   setExcelFile(null);
-                  setElectricItem("");
+                  setWaterItem("");
                 }}
               >
                 Close
@@ -667,19 +655,19 @@ const ElectricityCatalogue = () => {
                   <select
                     class="form-select"
                     aria-label="Default select example"
-                    value={electricItem}
+                    value={waterItem}
                     onChange={(e) => {
                       console.log(e.target.value);
-                      setElectricItem(e.target.value);
+                      setWaterItem(e.target.value);
                     }}
                   >
                     <option value="" selected>
-                      Select Type Of Eletric Item
+                      Select Type Of Water Product
                     </option>
-                    <option value="ac">Air Conditioners</option>
-                    <option value="bulb">Bulb</option>
-                    <option value="tubeLight">Tube Light</option>
-                    <option value="fan">Fans</option>
+                    <option value="tap">Tap</option>
+                    <option value="toilet">Toilet</option>
+                    {/* <option value="tubeLight">Tube Light</option> */}
+                    <option value="shower">Shower</option>
                   </select>
                   <div class="dropdown">
                     <button
@@ -691,31 +679,31 @@ const ElectricityCatalogue = () => {
                       Download Sample
                     </button>
                     <ul class="dropdown-menu">
-                      <li onClick={() => handleSampleDownload("airCondition")}>
-                        <a class="dropdown-item">Air Conditions</a>
+                      <li onClick={() => handleSampleDownload("tap")}>
+                        <a class="dropdown-item">Tap</a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a
                           class="dropdown-item"
                           onClick={() => handleSampleDownload("tubeLight")}
                         >
                           Tube Lights
                         </a>
-                      </li>
+                      </li> */}
                       <li>
                         <a
                           class="dropdown-item"
-                          onClick={() => handleSampleDownload("fan")}
+                          onClick={() => handleSampleDownload("shower")}
                         >
-                          Fans
+                          Shower
                         </a>
                       </li>
                       <li>
                         <a
                           class="dropdown-item"
-                          onClick={() => handleSampleDownload("bulb")}
+                          onClick={() => handleSampleDownload("toilet")}
                         >
-                          Bulb
+                          Toilet
                         </a>
                       </li>
                     </ul>
@@ -723,11 +711,11 @@ const ElectricityCatalogue = () => {
                 </div>
                 <Uploader
                   // autoUpload={false}
-                  multiple={false} // Disallow multiple file uploads
+                  multiple={false}
                   fileListVisible={false}
                   draggable
                   onChange={handleFileChange}
-                  fileList={fileList} // Bind the state to the Uploader
+                  fileList={fileList}
                 >
                   <div
                     style={{
@@ -779,29 +767,23 @@ const ElectricityCatalogue = () => {
       </div>
 
       {/* <!--view- Modal --> */}
-      {electricProductType == "tubelight" ? (
-        <TubeLight
+      {waterProductType == "tap" ? (
+        <Tap
           id="view-mddl"
-          viewElectricProduct={viewElectricProduct}
-          setViewElectricProduct={setViewElectricProduct}
+          viewWaterProduct={viewWaterProduct}
+          setViewWaterProduct={setViewWaterProduct}
         />
-      ) : electricProductType == "ac" ? (
-        <AirCondition
+      ) : waterProductType == "shower" ? (
+        <Shower
           id="view-mddl"
-          viewElectricProduct={viewElectricProduct}
-          setViewElectricProduct={setViewElectricProduct}
+          viewWaterProduct={viewWaterProduct}
+          setViewWaterProduct={setViewWaterProduct}
         />
-      ) : electricProductType == "fan" ? (
-        <Fan
+      ) : waterProductType == "toilet" ? (
+        <Toilet
           id="view-mddl"
-          viewElectricProduct={viewElectricProduct}
-          setViewElectricProduct={setViewElectricProduct}
-        />
-      ) : electricProductType == "bulb" ? (
-        <Bulb
-          id="view-mddl"
-          viewElectricProduct={viewElectricProduct}
-          setViewElectricProduct={setViewElectricProduct}
+          viewWaterProduct={viewWaterProduct}
+          setViewWaterProduct={setViewWaterProduct}
         />
       ) : (
         ""
@@ -809,37 +791,29 @@ const ElectricityCatalogue = () => {
 
       {/* <TubeLightEdit id="edit-mddl"  /> */}
       {/* <!--Edit- Modal --> */}
-      {electricProductType == "tubelight" ? (
-        <TubeLightEdit
+      {waterProductType == "tap" ? (
+        <TapEdit
           id="edit-mddl"
-          viewElectricProduct={viewElectricProduct}
+          viewWaterProduct={viewWaterProduct}
           pageRender={pageRender}
           setPageRender={setPageRender}
-          setViewElectricProduct={setViewElectricProduct}
+          setViewWaterProduct={setViewWaterProduct}
         />
-      ) : electricProductType == "ac" ? (
-        <AirConditionEdit
+      ) : waterProductType == "shower" ? (
+        <ShowerEdit
           id="edit-mddl"
-          viewElectricProduct={viewElectricProduct}
+          viewWaterProduct={viewWaterProduct}
           pageRender={pageRender}
           setPageRender={setPageRender}
-          setViewElectricProduct={setViewElectricProduct}
+          setViewWaterProduct={setViewWaterProduct}
         />
-      ) : electricProductType == "fan" ? (
-        <FanEdit
+      ) : waterProductType == "toilet" ? (
+        <ToiletEdit
           id="edit-mddl"
-          viewElectricProduct={viewElectricProduct}
+          viewWaterProduct={viewWaterProduct}
           pageRender={pageRender}
           setPageRender={setPageRender}
-          setViewElectricProduct={setViewElectricProduct}
-        />
-      ) : electricProductType == "bulb" ? (
-        <BulbEdit
-          id="edit-mddl"
-          viewElectricProduct={viewElectricProduct}
-          pageRender={pageRender}
-          setPageRender={setPageRender}
-          setViewElectricProduct={setViewElectricProduct}
+          setViewWaterProduct={setViewWaterProduct}
         />
       ) : (
         ""
@@ -848,4 +822,4 @@ const ElectricityCatalogue = () => {
   );
 };
 
-export default ElectricityCatalogue;
+export default WaterCatalogue;

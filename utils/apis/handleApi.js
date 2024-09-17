@@ -7,11 +7,14 @@ import Cookies from "js-cookie";
  export async function handleApi(url="/",method="get",bodyData=null,params={},isAuth=true,isFormData=false,router){
     
     try{
+        console.log(`API Endpoint: ${process.env.NEXT_PUBLIC_API_ENDPOINT}/${url}`);
+
+        console.log("handleapisucess",bodyData)
+        
     const config={
         method:method.toUpperCase(),
-        url:url,
-        baseUrl:process.env.NEXT_PUBLIC_API_ENDPOINT,
-        body:bodyData,
+        url:`${process.env.NEXT_PUBLIC_API_ENDPOINT}/${url}`,
+        data:bodyData,
         params:params,
         headers:{},
     }
@@ -23,7 +26,7 @@ import Cookies from "js-cookie";
     }
 
     if(isAuth){
-        const token = Cookies.get("token");
+        const token = localStorage.getItem("token");
         config.headers["Authorization"] = `Bearer ${token}`;
     }
 
@@ -33,15 +36,20 @@ import Cookies from "js-cookie";
     }catch(error){
 
         if (error?.response?.data === "Unauthorized") {
-            Cookies.remove("token");
+        //   Cookies.remove("token");
             localStorage.remove("token");
-            router?.push("authentication/sign-in");
+            // router?.push("authentication/sign-in");
             toast?.error(error?.response?.data);
             return false;
           }
           console.log("error",error)
-        toast.error(error?.response?.data?.errors?.msg);
+        toast.error(error?.message);
     }
 
 
+}
+
+
+export function hello(){
+    console.log("hello hello")
 }
