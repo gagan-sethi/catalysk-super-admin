@@ -37,6 +37,7 @@ const AirConditionEdit = ({
     // power_consumption_per_hour: Yup.number()
     //   .required("Power consumption is required")
     //   .positive("Must be positive"),
+    no_of_ratings: Yup.number().positive("Must be positive"),
     price: Yup.number()
       .required("Price is required")
       .positive("Must be positive"),
@@ -76,8 +77,8 @@ const AirConditionEdit = ({
         let postdata = formik?.values;
         postdata = { ...formik?.values, product_link: formik?.values.product_link[0] };
         console.log("postdata", postdata);
-        
-           
+
+
         const response = await handleApi(
           `catalogue/editProducts/${viewElectricProduct._id}`,
           "PATCH",
@@ -156,9 +157,10 @@ const AirConditionEdit = ({
         // cfm: viewElectricProduct?.cfm || "",
         // aec: viewElectricProduct?.aec || "",
         // power_consumption_per_hour:
-          // viewElectricProduct?.power_consumption_per_hour || "",
+        // viewElectricProduct?.power_consumption_per_hour || "",
         price: viewElectricProduct?.price || "",
         customer_rating: viewElectricProduct?.customer_rating || "",
+        no_of_ratings: viewElectricProduct?.no_of_ratings || "",
         // noise_level_rating: viewElectricProduct?.noise_level_rating || "",
         efficient_percentage: viewElectricProduct?.efficient_percentage || "",
         comments: viewElectricProduct?.comments || "",
@@ -505,6 +507,27 @@ const AirConditionEdit = ({
                         )}
                     </div>
                   </div>
+                  <div className="col-lg-6">
+                    <div className="form-group mb-3">
+                      <label className="mb-3">No. of ratings</label>
+                      <input
+                        style={{
+                          pointerEvents: "auto",
+                          backgroundColor: "white",
+                        }}
+                        type="text"
+                        className="form-control"
+                        //  value={formik?.values?.no_of_ratings} />
+                        {...formik.getFieldProps("no_of_ratings")}
+                      />
+                      {formik?.touched?.no_of_ratings &&
+                        formik?.errors?.no_of_ratings && (
+                          <small className="text-danger">
+                            {formik?.errors.no_of_ratings}
+                          </small>
+                        )}
+                    </div>
+                  </div>
                   {/* <div className="col-lg-6">
                     <div className="form-group mb-3">
                       <label className="mb-3">Noise level rating</label>
@@ -596,7 +619,7 @@ const AirConditionEdit = ({
                         )}
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
             </div>

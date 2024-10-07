@@ -225,6 +225,16 @@ const AirCondition = ({ id, viewElectricProduct, setViewElectricProduct }) => {
                       />
                     </div>
                   </div>
+                  <div className="col-lg-6">
+                    <div className="form-group mb-3">
+                      <label className="mb-3">No. of ratings</label>
+                      <input
+                        className="form-control"
+                        value={viewElectricProduct?.no_of_ratings}
+                        readonly
+                      />
+                    </div>
+                  </div>
                   {/* <div className="col-lg-6">
                     <div className="form-group mb-3">
                       <label className="mb-3">Noise level rating</label>

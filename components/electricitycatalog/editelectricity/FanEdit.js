@@ -57,11 +57,12 @@ const AirConditionEdit = ({
     blade_length: Yup.string().required("Blade length is required"),
     remote: Yup.string().required("Remote info is required"),
     price_on_company_site: Yup.number()
-      .typeError("Price must be a number")
-      .required("Price on company site is required"),
-    company_url: Yup.string().required("Company URL is required"),
+      .typeError("Price must be a number"),
+      // .required("Price on company site is required"),
+    company_url: Yup.string(),
     model_name: Yup.string().required("Model name is required"),
-    price_range: Yup.string().required("Price range is required"),
+    price_range: Yup.string()
+    // .required("Price range is required"),
   });
   console.log("viewElectricProduct", viewElectricProduct.product_link);
 
