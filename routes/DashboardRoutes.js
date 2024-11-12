@@ -66,31 +66,35 @@ export const DashboardMenu = [
 	// },
 
 
-	
+
 	{
 		id: uuid(),
 		title: 'Dashboard',
 		icon: 'home',
 		link: '/pages/dashboard'
-	},	
+	},
+
 	{
 		id: uuid(),
 		title: 'Users Management',
 		icon: 'users',
 		link: '/pages/users-management'
-	},	
+	},
+
 	{
 		id: uuid(),
 		title: 'Corporates Management',
 		icon: 'briefcase',
 		link: '/pages/corporates-management'
 	},
+
 	{
 		id: uuid(),
 		title: 'Societies Management',
 		icon: 'git-pull-request',
 		link: '#'
 	},
+
 	{
 		id: uuid(),
 		title: 'Catalogue',
@@ -100,12 +104,25 @@ export const DashboardMenu = [
 			{ id: uuid(), link: '/pages/water-catalogue', name: 'Water' },
 		]
 	},
+
+	{
+		id: uuid(),
+		title: 'Assumptions',
+		icon: 'git-pull-request',
+		children: [
+			{ id: uuid(), link: '/pages/electricity-assumptions', name: 'Electricity' },
+			{ id: uuid(), link: '/pages/water-assumptions', name: 'Water' },
+			{ id: uuid(), link: '/pages/commute-assumptions', name: 'Commute' },
+		]
+	},
+
 	{
 		id: uuid(),
 		title: 'Challenges Management',
 		icon: 'pocket',
 		link: '#'
 	},
+
 	{
 		id: uuid(),
 		title: 'General Management',
@@ -113,8 +130,8 @@ export const DashboardMenu = [
 		children: [
 			{ id: uuid(), link: '/pages/privacy-policy', name: 'Privacy Policy' },
 			{ id: uuid(), link: '/pages/terms-conditions', name: 'Terms and Conditions' },
-			{ id: uuid(), link: '/pages/feedbacks-management', name: 'Feedbacks'},
-			{ id: uuid(), link: '/pages/faq-management', name: 'F.A.Q'}				
+			{ id: uuid(), link: '/pages/feedbacks-management', name: 'Feedbacks' },
+			{ id: uuid(), link: '/pages/faq-management', name: 'F.A.Q' }
 		]
 	},
 
@@ -129,10 +146,16 @@ export const DashboardMenu = [
 		id: uuid(),
 		title: 'Report Management',
 		icon: 'download',
-		link: '#'
+		link: '/pages/reports-management',
+		children: [
+			{ id: uuid(), link: '/pages/users-report', name: 'Users Report' },
+			{ id: uuid(), link: '/pages/corporates-report', name: 'Corporates Report' },
+			// { id: uuid(), link: '/pages/socities-report', name: 'Socities Report' },
+			// { id: uuid(), link: '/pages/challenges-report', name: 'Challenges Report' }
+		]
 	},
 
-	
+
 ];
 
 export default DashboardMenu;
