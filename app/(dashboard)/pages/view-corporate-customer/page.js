@@ -8,6 +8,7 @@ import { PageHeading } from 'widgets'
 // import subcomponents
 import CorporateCustomerGeneralInfo from 'sub-components/corporate-customer-management/CorporateCustomerGeneralInfo'
 import CorporateCustomerBankDetails from 'sub-components/corporate-customer-management/CorporateCustomerBankDetails'
+import CorporateAdmins from 'sub-components/corporate-customer-management/CorporateAdmins'
 
 const ViewCorporateCustomer = () => {
   return (
@@ -39,6 +40,18 @@ const ViewCorporateCustomer = () => {
                 </button>
                 <button
                   class='nav-link'
+                  id='v-pills-admins-tab'
+                  data-bs-toggle='pill'
+                  data-bs-target='#v-pills-admins'
+                  type='button'
+                  role='tab'
+                  aria-controls='v-pills-admins'
+                  aria-selected='false'
+                >
+                  Admins
+                </button>
+                <button
+                  class='nav-link'
                   id='v-pills-profile-tab'
                   data-bs-toggle='pill'
                   data-bs-target='#v-pills-employees'
@@ -66,6 +79,18 @@ const ViewCorporateCustomer = () => {
 
                 {/* employees-tab-start */}
 
+                <div
+                  class='tab-pane fade'
+                  id='v-pills-admins'
+                  role='tabpanel'
+                  aria-labelledby='v-pills-profile-tab'
+                  tabindex='0'
+                >
+                  {/* Corporate-employees-list */}
+
+                  <CorporateAdmins />
+                </div>
+                
                 <div
                   class='tab-pane fade'
                   id='v-pills-employees'

@@ -151,6 +151,7 @@ const CorporateUserManagement = () => {
                         <th scope='col'>Email</th>
                         <th scope='col'>Industry Type</th>
                         <th scope='col'>Number of Employees</th>
+                        <th scope='col'>Catalysk Manager</th>
                         {/* <th scope='col'>Registration Number</th>
                         <th scope='col'>Phone Number</th>
                         <th scope='col'>Website Url</th> */}
@@ -172,6 +173,7 @@ const CorporateUserManagement = () => {
                         <td>contact.nextgen@gmail.com</td>
                         <td>Technology</td>
                         <td>250</td>
+                        <td>John Doe</td>
                         {/* <td>CATA9874562</td>
                         <td className='nmbr-td'>+91-9874563652</td>
                         <td className='text-nowrap'>
@@ -245,6 +247,7 @@ const CorporateUserManagement = () => {
                         <td>contact.nextgen@gmail.com</td>
                         <td>Technology</td>
                         <td>250</td>
+                        <td>John Doe</td>
                         {/* <td>CATA9874562</td>
                         <td className='nmbr-td'>+91-9874563652</td>
                         <td className='text-nowrap'>
@@ -318,6 +321,7 @@ const CorporateUserManagement = () => {
                         <td>contact.nextgen@gmail.com</td>
                         <td>Technology</td>
                         <td>250</td>
+                        <td>John Doe</td>
                         {/* <td>CATA9874562</td>
                         <td className='nmbr-td'>+91-9874563652</td>
                         <td className='text-nowrap'>
@@ -391,6 +395,7 @@ const CorporateUserManagement = () => {
                         <td>contact.nextgen@gmail.com</td>
                         <td>Technology</td>
                         <td>250</td>
+                        <td>John Doe</td>
                         {/* <td>CATA9874562</td>
                         <td className='nmbr-td'>+91-9874563652</td>
                         <td className='text-nowrap'>
@@ -464,6 +469,7 @@ const CorporateUserManagement = () => {
                         <td>contact.nextgen@gmail.com</td>
                         <td>Technology</td>
                         <td>250</td>
+                        <td>John Doe</td>
                         {/* <td>CATA9874562</td>
                         <td className='nmbr-td'>+91-9874563652</td>
                         <td className='text-nowrap'>
@@ -537,6 +543,7 @@ const CorporateUserManagement = () => {
                         <td>contact.nextgen@gmail.com</td>
                         <td>Technology</td>
                         <td>250</td>
+                        <td>John Doe</td>
                         {/* <td>CATA9874562</td>
                         <td className='nmbr-td'>+91-9874563652</td>
                         <td className='text-nowrap'>
