@@ -648,7 +648,7 @@ const CorporateUserManagement = () => {
             <div class='modal-content'>
               <div class='modal-header'>
                 <h1 class='modal-title fs-5' id='exampleModalLabel'>
-                  Delete Corporate
+                  Delete Corporate Customer
                 </h1>
                 <button
                   type='button'
@@ -660,7 +660,7 @@ const CorporateUserManagement = () => {
               <div class='modal-body'>
                 <div className='dlt-mdl'>
                   <h4 className='text-center'>
-                    Are you sure want to delete this corporate?
+                    Are you sure want to delete this corporate customer?
                   </h4>
                 </div>
               </div>
@@ -693,7 +693,7 @@ const CorporateUserManagement = () => {
             <div class='modal-content'>
               <div class='modal-header'>
                 <h1 class='modal-title fs-5' id='exampleModalLabel'>
-                  Block Corporate
+                  Block Corporate Customer
                 </h1>
                 <button
                   type='button'
@@ -705,7 +705,7 @@ const CorporateUserManagement = () => {
               <div class='modal-body'>
                 <div className='dlt-mdl'>
                   <h4 className='text-center'>
-                    Are you sure want to block this corporate?
+                    Are you sure want to block this corporate customer?
                   </h4>
                 </div>
               </div>

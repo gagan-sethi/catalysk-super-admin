@@ -144,7 +144,6 @@ const CorporateCustomerGeneralInfo = () => {
                   </select>
                 </Col>
               </Row>
-
             </Form>
 
             <div className='d-flex justify-content-center p-3'>

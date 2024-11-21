@@ -9,8 +9,8 @@ const CorporateCustomerBankDetails = () => {
         <div className='card'>
           <div className='card-body'>
             <div className='mb-6 d-flex justify-content-between align-items-center'>
-              <h4 className='mb-1'>General Information</h4>
-              {/* <button className='btn btn-outline-white' data-bs-toggle="modal" data-bs-target="#qrcode-mddl"> Generate QR Codedcs</button> */}
+              <h4 className='mb-1'>Bank Details</h4>
+              {/* <button className='btn btn-outline-white' data-bs-toggle="modal" data-bs-target="#qrcode-mddl"> Generate QR Code</button> */}
             </div>
 
             <Form>
