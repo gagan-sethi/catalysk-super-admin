@@ -790,3 +790,31 @@
 .exportAll .dropdown-toggle::after {
   content: none !important;
 }
+
+
+
+.navbar-vertical .navbar-nav .nav-item .nav-link{
+  text-wrap: wrap;
+}
+
+
+
+.btnPrimary {
+  background-color: #373737;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 10px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    // background-color: #fff;
+    // color: #373737;
+    // font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+}
