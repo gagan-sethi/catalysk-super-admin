@@ -82,7 +82,7 @@ export const DashboardMenu = [
 	},
 	{
 		id: uuid(),
-		title: 'Corporare Customers Management',
+		title: 'Corporate Customers Management',
 		icon: 'users',
 		link: '/pages/corporate-customer-management'
 	},
