@@ -1,66 +1,68 @@
-'use client';
+'use client'
 
 // import node module libraries
-import { Container } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
-import { PageHeading } from 'widgets';
-import Link from 'next/link';
+import { Container } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
+import { PageHeading } from 'widgets'
+import Link from 'next/link'
 
 const CorporateUserManagement = () => {
   // State to manage customers and pagination
-  const [customers, setCustomers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [customers, setCustomers] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
 
   // Fetch customers from the API
-  const fetchCustomers = async (page) => {
-    setIsLoading(true);
+  const fetchCustomers = async page => {
+    setIsLoading(true)
     try {
-      const response = await fetch(`http://localhost:7001/corp_customer/getCustomers?page=${page}`);
+      const response = await fetch(
+        `http://localhost:7001/corp_customer/getCustomers?page=${page}`
+      )
       if (!response.ok) {
-        throw new Error('Failed to fetch customers');
+        throw new Error('Failed to fetch customers')
       }
-      const data = await response.json();
-      setCustomers(data.data || []); // Updated to access "data" in response
-      setTotalPages(data.pages || 1); // Updated to access "pages" in response
+      const data = await response.json()
+      setCustomers(data.data || []) // Updated to access "data" in response
+      setTotalPages(data.pages || 1) // Updated to access "pages" in response
     } catch (error) {
-      console.error('Error fetching customers:', error);
+      console.error('Error fetching customers:', error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchCustomers(currentPage);
-  }, [currentPage]);
+    fetchCustomers(currentPage)
+  }, [currentPage])
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  const handlePageChange = page => {
+    setCurrentPage(page)
+  }
 
   return (
     <>
-      <Container fluid className="p-6">
+      <Container fluid className='p-6'>
         {/* Page Heading */}
-        <div className="d-flex justify-content-between">
-          <PageHeading heading="Corporate Customers List" />
-          <Link href="/pages/add-corporate-customer" passHref>
-            <button type="button" className="btnPrimary">
+        <div className='d-flex justify-content-between'>
+          <PageHeading heading='Corporate Customers List' />
+          <Link href='/pages/add-corporate-customer' passHref>
+            <button type='button' className='btnPrimary'>
               Add New Corporate Customer
             </button>
           </Link>
         </div>
 
-        <div className="main-content-wrapper">
-          <div className="card">
-            <div className="card-body">
-              <div className="table-div">
+        <div className='main-content-wrapper'>
+          <div className='card'>
+            <div className='card-body'>
+              <div className='table-div'>
                 {isLoading ? (
                   <div>Loading...</div>
                 ) : (
-                  <div className="table-responsive">
-                    <table className="table table-striped">
+                  <div className='table-responsive'>
+                    <table className='table table-striped'>
                       <thead>
                         <tr>
                           <th>Corporate Name</th>
@@ -70,11 +72,11 @@ const CorporateUserManagement = () => {
                           <th>Industry Type</th>
                           <th>Number of Employees</th>
                           <th>Status</th>
-                          <th>Actions</th> {/* Action column */}
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {customers.map((customer) => (
+                        {customers.map(customer => (
                           <tr key={customer._id}>
                             <td>{customer.corporate_name}</td>
                             <td>{customer.corp_id}</td>
@@ -83,13 +85,18 @@ const CorporateUserManagement = () => {
                             <td>{customer.industry_type}</td>
                             <td>{customer.number_of_employees}</td>
                             <td>
-                              <span className={customer.status === 'Active' ? 'active' : 'blocked'}>
+                              <span
+                                className={
+                                  customer.status === 'Active'
+                                    ? 'active'
+                                    : 'blocked'
+                                }
+                              >
                                 {customer.status}
                               </span>
                             </td>
                             <td>
-                              {/* Action buttons */}
-                              <button
+                              {/* <button
                                 type="button"
                                 className="btn btn-sm btn-info me-2"
                                 onClick={() => alert(`View details of ${customer.corporate_name}`)}
@@ -109,22 +116,127 @@ const CorporateUserManagement = () => {
                                 onClick={() => alert(`Delete ${customer.corporate_name}`)}
                               >
                                 Delete
-                              </button>
+                              </button> */}
+                              <div className='dropdown'>
+                                <span
+                                  className='cstmDropdown dropdown-toggle'
+                                  data-bs-toggle='dropdown'
+                                  aria-expanded='false'
+                                >
+                                  <i className='fe fe-more-vertical'></i>
+                                </span>
+                                <ul className='dropdown-menu'>
+                                  <li>
+                                    <a
+                                      className='dropdown-item'
+                                      onClick={() =>
+                                        alert(
+                                          `View details of ${customer.corporate_name}`
+                                        )
+                                      }
+                                    >
+                                      View
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      className='dropdown-item'
+                                      onClick={() =>
+                                        alert(`Edit ${customer.corporate_name}`)
+                                      }
+                                    >
+                                      Edit
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      className='dropdown-item'
+                                      onClick={() =>
+                                        alert(
+                                          `Delete ${customer.corporate_name}`
+                                        )
+                                      }
+                                    >
+                                      Delete
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
                             </td>
                           </tr>
                         ))}
+
+                        {/* <tr>
+                          <td>dfgg</td>
+                          <td>rrt</td>
+                          <td>ttrg</td>
+                          <td>tfgbh</td>
+                          <td>ftgb</td>
+                          <td>tgbh</td>
+                          <td>btgfb</td>
+                          <td>
+                            <div className='dropdown'>
+                              <span
+                                className='cstmDropdown dropdown-toggle'
+                                data-bs-toggle='dropdown'
+                                aria-expanded='false'
+                              >
+                                <i className='fe fe-more-vertical'></i>
+                              </span>
+                              <ul className='dropdown-menu'>
+                                <li>
+                                  <a
+                                    className='dropdown-item'
+                                    onClick={() =>
+                                      alert(
+                                        `View details of ${customer.corporate_name}`
+                                      )
+                                    }
+                                  >
+                                    View
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    className='dropdown-item'
+                                    onClick={() =>
+                                      alert(`Edit ${customer.corporate_name}`)
+                                    }
+                                  >
+                                    Edit
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    className='dropdown-item'
+                                    onClick={() =>
+                                      alert(`Delete ${customer.corporate_name}`)
+                                    }
+                                  >
+                                    Delete
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr> */}
+                        
                       </tbody>
                     </table>
                   </div>
                 )}
 
                 {/* Pagination */}
-                <div className="pagination-div">
-                  <nav aria-label="Pagination">
-                    <ul className="pagination">
-                      <li className={`page-item ${currentPage === 1 && 'disabled'}`}>
+                <div className='pagination-div'>
+                  <nav aria-label='Pagination'>
+                    <ul className='pagination'>
+                      <li
+                        className={`page-item ${
+                          currentPage === 1 && 'disabled'
+                        }`}
+                      >
                         <button
-                          className="page-link"
+                          className='page-link'
                           onClick={() => handlePageChange(currentPage - 1)}
                         >
                           Previous
@@ -138,16 +250,20 @@ const CorporateUserManagement = () => {
                           key={index}
                         >
                           <button
-                            className="page-link"
+                            className='page-link'
                             onClick={() => handlePageChange(index + 1)}
                           >
                             {index + 1}
                           </button>
                         </li>
                       ))}
-                      <li className={`page-item ${currentPage === totalPages && 'disabled'}`}>
+                      <li
+                        className={`page-item ${
+                          currentPage === totalPages && 'disabled'
+                        }`}
+                      >
                         <button
-                          className="page-link"
+                          className='page-link'
                           onClick={() => handlePageChange(currentPage + 1)}
                         >
                           Next
@@ -162,7 +278,7 @@ const CorporateUserManagement = () => {
         </div>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default CorporateUserManagement;
+export default CorporateUserManagement
