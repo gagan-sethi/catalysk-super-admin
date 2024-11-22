@@ -489,7 +489,7 @@ const CorporateAdmins = () => {
 
       {/* <!-- Modal --> */}
 
-      <div
+      {/* <div
         class='modal fade'
         id='add-mddl'
         tabindex='-1'
@@ -632,6 +632,172 @@ const CorporateAdmins = () => {
             </div>
           </div>
         </div>
+      </div> */}
+
+      <div
+        className='modal fade'
+        id='add-mddl'
+        tabIndex='-1'
+        aria-labelledby='exampleModalLabel'
+        aria-hidden='true'
+      >
+        <div className='modal-dialog'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <h1 className='modal-title fs-5' id='exampleModalLabel'>
+                Add New Corporate Admin
+              </h1>
+              <button
+                type='button'
+                className='btn-close'
+                data-bs-dismiss='modal'
+                aria-label='Close'
+              ></button>
+            </div>
+            <div className='modal-body'>
+              <form onSubmit={handleSubmit}>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='accountHolder' className='mb-1'>Name</label>
+                  <input
+                    type='text'
+                    id='accountHolder'
+                    name='accountHolder'
+                    value={formData.accountHolder}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='email' className='mb-1'>Email</label>
+                  <input
+                    type='email'
+                    id='email'
+                    name='email'
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='phoneNumber' className='mb-1'>Phone Number</label>
+                  <input
+                    type='text'
+                    id='phoneNumber'
+                    name='phoneNumber'
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='linkedInUrl' className='mb-1'>LinkedIn URL</label>
+                  <input
+                    type='url'
+                    id='linkedInUrl'
+                    name='linkedInUrl'
+                    value={formData.linkedInUrl}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='location' className='mb-1'>Location</label>
+                  <input
+                    type='text'
+                    id='location'
+                    name='location'
+                    value={formData.location}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='category' className='mb-1'>Category</label>
+                  <select
+                    id='category'
+                    name='category'
+                    value={formData.category}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
+                  >
+                    <option value='Admin'>Admin</option>
+                    <option value='Super Admin'>Super Admin</option>
+                  </select>
+                </div>
+
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='comments' className='mb-1'>Comments</label>
+                  <textarea
+                    id='comments'
+                    name='comments'
+                    value={formData.comments}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+            <div className='modal-footer'>
+              <button type='submit' className='btn btn-primary'>
+                Save changes
+              </button>
+              <button
+                type='button'
+                className='btn btn-outline-white'
+                data-bs-dismiss='modal'
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div
@@ -654,123 +820,143 @@ const CorporateAdmins = () => {
                 aria-label='Close'
               ></button>
             </div>
-            <div class='modal-body'>
+            <div className='modal-body'>
               <form onSubmit={handleSubmit}>
-                <div className='mb-3'>
-                  <label htmlFor='accountHolder' className='form-label'>
-                    Name
-                  </label>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='accountHolder' className='mb-1'>Name</label>
                   <input
                     type='text'
-                    className='form-control'
                     id='accountHolder'
                     name='accountHolder'
                     value={formData.accountHolder}
                     onChange={handleChange}
                     required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
                   />
                 </div>
 
-                <div className='mb-3'>
-                  <label htmlFor='email' className='form-label'>
-                    Email
-                  </label>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='email' className='mb-1'>Email</label>
                   <input
                     type='email'
-                    className='form-control'
                     id='email'
                     name='email'
                     value={formData.email}
                     onChange={handleChange}
                     required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
                   />
                 </div>
 
-                <div className='mb-3'>
-                  <label htmlFor='phoneNumber' className='form-label'>
-                    Phone Number
-                  </label>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='phoneNumber' className='mb-1'>Phone Number</label>
                   <input
                     type='text'
-                    className='form-control'
                     id='phoneNumber'
                     name='phoneNumber'
                     value={formData.phoneNumber}
                     onChange={handleChange}
                     required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
                   />
                 </div>
 
-                <div className='mb-3'>
-                  <label htmlFor='linkedInUrl' className='form-label'>
-                    LinkedIn URL
-                  </label>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='linkedInUrl' className='mb-1'>LinkedIn URL</label>
                   <input
                     type='url'
-                    className='form-control'
                     id='linkedInUrl'
                     name='linkedInUrl'
                     value={formData.linkedInUrl}
                     onChange={handleChange}
                     required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
                   />
                 </div>
 
-                <div className='mb-3'>
-                  <label htmlFor='location' className='form-label'>
-                    Location
-                  </label>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='location' className='mb-1'>Location</label>
                   <input
                     type='text'
-                    className='form-control'
                     id='location'
                     name='location'
                     value={formData.location}
                     onChange={handleChange}
                     required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
                   />
                 </div>
 
-                <div className='form-group mb-3'>
-                  <label htmlFor='category' className='form-label'>
-                    Category
-                  </label>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='category' className='mb-1'>Category</label>
                   <select
-                    className='form-control'
                     id='category'
                     name='category'
                     value={formData.category}
                     onChange={handleChange}
                     required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
                   >
                     <option value='Admin'>Admin</option>
                     <option value='Super Admin'>Super Admin</option>
                   </select>
                 </div>
 
-                <div className='form-group mb-3'>
-                  <label htmlFor='comments' className='form-label'>
-                    Comments
-                  </label>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label htmlFor='comments' className='mb-1'>Comments</label>
                   <textarea
-                    className='form-control'
                     id='comments'
                     name='comments'
                     value={formData.comments}
                     onChange={handleChange}
                     required
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      borderRadius: '.375rem',
+                      border: '1px solid #dfe3e8'
+                    }}
                   ></textarea>
                 </div>
               </form>
             </div>
-
-            <div class='modal-footer'>
-              <button type='submit' class='btn btn-primary'>
+            <div className='modal-footer'>
+              <button type='submit' className='btn btn-primary'>
                 Save changes
               </button>
               <button
                 type='button'
-                class='btn btn-outline-white'
+                className='btn btn-outline-white'
                 data-bs-dismiss='modal'
               >
                 Cancel
