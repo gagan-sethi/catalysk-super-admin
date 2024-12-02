@@ -220,7 +220,6 @@ const CorporateUserManagement = () => {
                             </div>
                           </td>
                         </tr> */}
-                        
                       </tbody>
                     </table>
                   </div>

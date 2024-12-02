@@ -799,3 +799,38 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   }
 }
+
+.dateBox {
+  width: 220px;
+}
+
+.proofMedia {
+  display: flex;
+  // flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  .sparks-gained-hdr {
+    flex-direction: column;
+    gap: 10px;
+    .lft-spark img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      border-radius: 15px;
+    }
+  }
+}
+
+.billTabs {
+  .rs-nav-item.rs-nav-item-active {
+    color: #000;
+    font-weight: bold;
+  }
+  .rs-nav-subtle .rs-nav-item.rs-nav-item-active:before {
+    background-color: #212b36 !important;
+  }
+  .rs-nav-subtle .rs-nav-item:hover {
+    color: #000;
+    // font-weight: bold;
+  }
+}
