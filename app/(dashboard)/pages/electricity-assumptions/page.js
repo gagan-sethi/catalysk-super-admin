@@ -7,7 +7,7 @@ import { Uploader } from "rsuite";
 
 // import widget as custom components
 import { PageHeading } from "widgets";
-import { handleApi, hello } from "utils/apis/handleApi.js";
+import { handleApi } from "utils/apis/handleApi.js";
 import { Form } from "react-bootstrap";
 
 import { useRouter } from "next/navigation";
