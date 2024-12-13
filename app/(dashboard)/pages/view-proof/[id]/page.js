@@ -7,6 +7,7 @@ import { PageHeading } from "widgets";
 import { useState, useEffect } from "react";
 import { handleApi } from "utils/apis/handleApi.js";
 import { saveAs } from "file-saver";
+import axios from "axios"
 
 const electricity = [
   "incandescent_bulb",
@@ -48,20 +49,35 @@ const ViewProof = () => {
     getProofDetails();
   }, [id]);
 
-  const handleDownload = async (fileUrl) => {
+  const handleDownload = async (key) => {
     try {
-      console.log("fileUrl", fileUrl);
-      const response = await fetch(fileUrl);
-      if (!response.ok) {
-        throw new Error("Failed to fetch the file");
-      }
 
-      const blob = await response.blob();
-      const fileName = fileUrl.split("/").pop() || "downloaded_file";
+      const token = localStorage.getItem("token"); // Get token from localStorage
+      const headers = {
+        "Authorization": `Bearer ${token}`, // Set Authorization header
+      };
+  
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/report-managment/getImageByUrl`, {
+        params: { path: key },
+        responseType: "blob", // Ensure the response is a blob (binary data)
+        headers, // Include the headers in the request
+      });
 
-      saveAs(blob, fileName);
+      // Create a URL for the blob and initiate download
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+
+      // Set the filename and download link
+      link.href = url;
+      link.download = key.split("/").pop(); // Extract filename from the path
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Revoke the blob URL to free memory
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("Error downloading the file:", error);
+      console.error('Error downloading image:', error);
     }
   };
 
@@ -183,7 +199,7 @@ const ViewProof = () => {
                                 data-bs-target="#block-mddl"
                                 onClick={() =>
                                   setUrl(
-                                    `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${ele}`
+                                    ele
                                   )
                                 }
                               >
@@ -195,7 +211,7 @@ const ViewProof = () => {
                                 className="btn btn-primary"
                                 onClick={() =>
                                   handleDownload(
-                                    `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${ele}`
+                                    ele
                                   )
                                 }
                               >
@@ -281,7 +297,7 @@ const ViewProof = () => {
               </div>
               <div class="modal-body">
                 <div className="qrcode-mdl">
-                  <Image src={url} alt="" />
+                  <Image src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${url}`} alt="" />
                 </div>
               </div>
               <div class="modal-footer">
