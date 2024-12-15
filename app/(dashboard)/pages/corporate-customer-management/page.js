@@ -18,7 +18,7 @@ const CorporateUserManagement = () => {
     setIsLoading(true)
     try {
       const response = await fetch(
-        `http://localhost:7001/corp_customer/getCustomers?page=${page}`
+        `https://betazone.promaticstechnologies.com/admin/corp_customer/getCustomers?page=${page}`
       )
       if (!response.ok) {
         throw new Error('Failed to fetch customers')
@@ -96,27 +96,7 @@ const CorporateUserManagement = () => {
                               </span>
                             </td>
                             <td>
-                              {/* <button
-                                type="button"
-                                className="btn btn-sm btn-info me-2"
-                                onClick={() => alert(`View details of ${customer.corporate_name}`)}
-                              >
-                                View
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-warning me-2"
-                                onClick={() => alert(`Edit ${customer.corporate_name}`)}
-                              >
-                                Edit
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-danger"
-                                onClick={() => alert(`Delete ${customer.corporate_name}`)}
-                              >
-                                Delete
-                              </button> */}
+                             
                               <div className='dropdown'>
                                 <span
                                   className='cstmDropdown dropdown-toggle'
@@ -127,39 +107,11 @@ const CorporateUserManagement = () => {
                                 </span>
                                 <ul className='dropdown-menu'>
                                   <li>
-                                    <a
-                                      className='dropdown-item'
-                                      onClick={() =>
-                                        alert(
-                                          `View details of ${customer.corporate_name}`
-                                        )
-                                      }
-                                    >
-                                      View
-                                    </a>
+                                  <Link href={`/pages/invoice-management?customerId=${customer._id}`} passHref>
+                                      View Invoices
+                                    </Link>
                                   </li>
-                                  <li>
-                                    <a
-                                      className='dropdown-item'
-                                      onClick={() =>
-                                        alert(`Edit ${customer.corporate_name}`)
-                                      }
-                                    >
-                                      Edit
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a
-                                      className='dropdown-item'
-                                      onClick={() =>
-                                        alert(
-                                          `Delete ${customer.corporate_name}`
-                                        )
-                                      }
-                                    >
-                                      Delete
-                                    </a>
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
