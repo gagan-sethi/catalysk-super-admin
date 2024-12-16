@@ -2,12 +2,12 @@
 
 // import node module libraries
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/router';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { PageHeading } from 'widgets';
 
 const AddPaymentPlan = () => {
-  const router = useRouter();
+ // const router = usePathname();
 
   // Form state
   const [formData, setFormData] = useState({
