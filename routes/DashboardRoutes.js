@@ -139,6 +139,7 @@ export const DashboardMenu = [
 			{ id: uuid(), link: '/pages/payment-plans', name: 'Payment Plans' },
 			{ id: uuid(), link: '/pages/terms-conditions', name: 'QR Codes' },
 			{ id: uuid(), link: '/pages/feedbacks-management', name: 'Payment Proofs' },
+			{ id: uuid(), link: '/pages/payments', name: 'Payments' },
 		]
 	},
 

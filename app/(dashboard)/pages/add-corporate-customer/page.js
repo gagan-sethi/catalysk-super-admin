@@ -265,7 +265,7 @@ const AddCorporateCustomer = () => {
                     {loading ? "Saving..." : "Add"}
                   </button>
 
-                  <Link href="/dashboard/customer" className="btn btn-secondary">
+                  <Link href="/dashboard/customer" className="btn btn-outline-white">
                     Cancel
                   </Link>
                 </div>

@@ -95,7 +95,7 @@ const CorporateUserManagement = () => {
                                 {customer.status}
                               </span>
                             </td>
-                            <td>
+                            <td className='action-td'>
                              
                               <div className='dropdown'>
                                 <span
@@ -107,7 +107,7 @@ const CorporateUserManagement = () => {
                                 </span>
                                 <ul className='dropdown-menu'>
                                   <li>
-                                  <Link href={`/pages/invoice-management?customerId=${customer._id}`} passHref>
+                                  <Link className="dropdown-item" href={`/pages/invoice-management?customerId=${customer._id}`} passHref>
                                       View Invoices
                                     </Link>
                                   </li>

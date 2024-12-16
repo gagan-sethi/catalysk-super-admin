@@ -220,7 +220,7 @@ const AddInvoice = () => {
                     {loading ? "Saving..." : "Add"}
                   </button>
 
-                  <Link href="/dashboard/invoices" className="btn btn-secondary">
+                  <Link href="/dashboard/invoices" className="btn btn-outline-white">
                     Cancel
                   </Link>
                 </div>
