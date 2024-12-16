@@ -1,310 +1,190 @@
 'use client'
-// import node module libraries
-import { Col, Row, Container, Button } from 'react-bootstrap'
 
-// import widget as custom components
-import { PageHeading } from 'widgets'
+// Import necessary libraries
+import { useState, useEffect } from 'react';
+import { Col, Row, Container, Button } from 'react-bootstrap';
+import { PageHeading } from 'widgets';
+import axios from 'axios';
 
 const Payments = () => {
-  return (
-    <Container fluid className='p-6'>
-      {/* Page Heading */}
-      <PageHeading heading='Payments' />
+  const [payments, setPayments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [rejectionReason, setRejectionReason] = useState('');
+  const [selectedPayment, setSelectedPayment] = useState(null);
 
-      <div className='card'>
-        <div className='card-body'>
-          <div className='table-div'>
-            <div className='table-responsive'>
-              <table className='table table-striped'>
+  // Fetch payments data
+  const fetchPayments = async () => {
+    try {
+      const response = await axios.get(
+        'https://betazone.promaticstechnologies.com/admin/payment/getPaymentProof?limit=10&offset=0&search=',
+        {
+          headers: {
+            Authorization: 'Bearer d527c719af2db07b02b744f836bd3361b4609c45bade79e1b9417641f79022e8935ac128ed40cc8fb52279e56cfcfba86d2d86d40ea005fb6192bb3f906ee49fe984947f584fb0661785c49afc6553b4da9c2ad86c8a4ed07d100f370e8fc2343a74c3ed68d3fe2768612cde0b208ee5444f3b902a436dc4a5d6f900ceea866c33c83265b708c617cde2ac6dc755456a491236d8e996e3b8f740435459619c13282276d91505d74839aa129b0a17f16a4976c589b59944104ec6927ecc2fab3eddd67087a1aa5d4444462cd48be77a8d',
+          },
+        }
+      );
+      setPayments(response.data.data);
+    } catch (error) {
+      console.error('Error fetching payments:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPayments();
+  }, []);
+
+  // Handle approve or reject action
+  const handleAction = async (paymentId, status) => {
+    try {
+      const response = await axios.post(
+        'https://betazone.promaticstechnologies.com/admin/payment/approveOrRejectPayment',
+        {
+          id: paymentId,
+          status,
+          note: status === 'rejected' ? rejectionReason : '',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer d527c719af2db07b02b744f836bd3361b4609c45bade79e1b9417641f79022e8935ac128ed40cc8fb52279e56cfcfba86d2d86d40ea005fb6192bb3f906ee49fe984947f584fb0661785c49afc6553b4da9c2ad86c8a4ed07d100f370e8fc2343a74c3ed68d3fe2768612cde0b208ee5444f3b902a436dc4a5d6f900ceea866c33c83265b708c617cde2ac6dc755456a491236d8e996e3b8f740435459619c13282276d91505d74839aa129b0a17f16a4976c589b59944104ec6927ecc2fab3eddd67087a1aa5d4444462cd48be77a8d',
+          },
+        }
+      );
+      console.log('Action response:', response.data);
+      fetchPayments(); // Refresh payments list
+    } catch (error) {
+      console.error('Error processing action:', error);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <Container fluid className="p-6">
+      <PageHeading heading="Payments" />
+
+      <div className="card">
+        <div className="card-body">
+          <div className="table-div">
+            <div className="table-responsive">
+              <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th scope='col'>Sr. No.</th>
-                    <th scope='col'>Username</th>
-                    <th scope='col'>Email</th>
-                    <th scope='col'>Plan Name</th>
-                    <th scope='col'>Reference Number</th>
-                    <th scope='col'>Status</th>
+                    <th scope="col">Sr. No.</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Plan Name</th>
+                    <th scope="col">Reference Number</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-
-                  <tr>
-                    <td scope='row'>01</td>
-                    <td className='text-nowrap'>Dale Stayn</td>
-                    <td>dale@gmail.com</td>
-                    <td className='text-nowrap'>Silver Plan</td>
-                    <td>675ac4aa04ec97</td>
-
-                    <td className='action-td'>
-                      <div className='d-flex align-items-center gap-2'>
-                        <button
-                          type='button'
-                          class='btn btn-primary'
-                        >
-                          Approve
-                        </button>
-                        <button
-                          type='button'
-                          class='btn btn-danger'
-                          data-bs-toggle='modal'
-                         data-bs-target='#add-faq-mddl'
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope='row'>02</td>
-                    <td className='text-nowrap'>Thomas Edison</td>
-                    <td>thomas@gmail.com</td>
-                    <td className='text-nowrap'>Gold Plan</td>
-                    <td>35ac4aa04ec97</td>
-
-                    <td className='action-td'>
-                      <div className='d-flex align-items-center gap-2'>
-                        <button
-                          type='button'
-                          class='btn btn-primary'
-                        >
-                          Approve
-                        </button>
-                        <button
-                          type='button'
-                          class='btn btn-danger'
-                          data-bs-toggle='modal'
-                         data-bs-target='#add-faq-mddl'
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope='row'>03</td>
-                    <td className='text-nowrap'>Marry Curie</td>
-                    <td>curie@gmail.com</td>
-                    <td className='text-nowrap'>Silver Plan</td>
-                    <td>35ac4aefh4ec97</td>
-
-                    <td className='action-td'>
-                      <div className='d-flex align-items-center gap-2'>
-                        <button
-                          type='button'
-                          class='btn btn-primary'
-                        >
-                          Approve
-                        </button>
-                        <button
-                          type='button'
-                          class='btn btn-danger'
-                          data-bs-toggle='modal'
-                         data-bs-target='#add-faq-mddl'
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope='row'>04</td>
-                    <td className='text-nowrap'>John Gaurge</td>
-                    <td>john@gmail.com</td>
-                    <td className='text-nowrap'>Gold Plan</td>
-                    <td>35ac4aefh4ec97</td>
-
-                    <td className='action-td'>
-                      <div className='d-flex align-items-center gap-2'>
-                        <button
-                          type='button'
-                          class='btn btn-primary'
-                        >
-                          Approve
-                        </button>
-                        <button
-                          type='button'
-                          class='btn btn-danger'
-                          data-bs-toggle='modal'
-                         data-bs-target='#add-faq-mddl'
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td scope='row'>05</td>
-                    <td className='text-nowrap'>Shane Watson</td>
-                    <td>shane@gmail.com</td>
-                    <td className='text-nowrap'>Silver Plan</td>
-                    <td>85ac4aefh4ec97</td>
-
-                    <td className='action-td'>
-                      <div className='d-flex align-items-center gap-2'>
-                        <button
-                          type='button'
-                          class='btn btn-primary'
-                        >
-                          Approve
-                        </button>
-                        <button
-                          type='button'
-                          class='btn btn-danger'
-                          data-bs-toggle='modal'
-                         data-bs-target='#add-faq-mddl'
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  
-
+                  {payments.map((payment, index) => (
+                    <tr key={payment._id}>
+                      <td>{index + 1}</td>
+                      <td>{payment.full_name}</td>
+                      <td>{payment.email}</td>
+                      <td>{payment.plan_name}</td>
+                      <td>{payment.ref_number}</td>
+                      <td>{payment.status}</td>
+                      <td>
+                        {payment.status === 'approved' ? (
+                          <Button variant="success" disabled>
+                            Approved
+                          </Button>
+                        ) : payment.status === 'rejected' ? (
+                          <div>
+                            <Button variant="danger" disabled>
+                              Rejected
+                            </Button>
+                            <p className="text-muted">{payment.note}</p>
+                          </div>
+                        ) : (
+                          <div className="d-flex gap-2">
+                            <Button
+                              variant="primary"
+                              onClick={() => handleAction(payment._id, 'approved')}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              variant="danger"
+                              onClick={() => {
+                                setSelectedPayment(payment._id);
+                                setRejectionReason('');
+                              }}
+                              data-bs-toggle="modal"
+                              data-bs-target="#rejection-modal"
+                            >
+                              Reject
+                            </Button>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
-            <div className='pagination-div'>
-              <nav aria-label='...'>
-                <ul class='pagination'>
-                  <li class='page-item disabled'>
-                    <span class='page-link'>Previous</span>
-                  </li>
-                  <li class='page-item'>
-                    <a class='page-link' href='#'>
-                      1
-                    </a>
-                  </li>
-                  <li class='page-item active'>
-                    <span class='page-link'>
-                      2<span class='sr-only'>(current)</span>
-                    </span>
-                  </li>
-                  <li class='page-item'>
-                    <a class='page-link' href='#'>
-                      3
-                    </a>
-                  </li>
-                  <li class='page-item'>
-                    <a class='page-link' href='#'>
-                      Next
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* modals */}
-
-      {/* <!--reply- Modal --> */}
-
+      {/* Rejection Modal */}
       <div
-        class='modal fade'
-        id='add-faq-mddl'
-        tabindex='-1'
-        aria-labelledby='exampleModalLabel'
-        aria-hidden='true'
+        className="modal fade"
+        id="rejection-modal"
+        tabIndex="-1"
+        aria-labelledby="rejectionModalLabel"
+        aria-hidden="true"
       >
-        <div class='modal-dialog'>
-          <div class='modal-content'>
-            <div class='modal-header'>
-              <h1 class='modal-title fs-5' id='exampleModalLabel'>
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="rejectionModalLabel">
                 Rejection Reason
-              </h1>
+              </h5>
               <button
-                type='button'
-                class='btn-close'
-                data-bs-dismiss='modal'
-                aria-label='Close'
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
               ></button>
             </div>
-            <div class='modal-body'>
-              <div className='add-mdl'>
-                <div className='form-group mb-3'>
-                  <label className='mb-3'>Enter Reason for Rejection</label>
-                  <textarea className='form-control' rows='6'>
-                    {' '}
-                  </textarea>
-                </div>
-              </div>
+            <div className="modal-body">
+              <textarea
+                className="form-control"
+                rows="4"
+                placeholder="Enter reason for rejection"
+                value={rejectionReason}
+                onChange={(e) => setRejectionReason(e.target.value)}
+              ></textarea>
             </div>
-            <div class='modal-footer'>
-              <button type='button' class='btn btn-primary'>
-                Save Changes
-              </button>
-              <button
-                type='button'
-                class='btn btn-outline-white'
-                data-bs-dismiss='modal'
+            <div className="modal-footer">
+              <Button
+                variant="primary"
+                onClick={() => {
+                  handleAction(selectedPayment, 'rejected');
+                  document.getElementById('rejection-modal').click();
+                }}
+                disabled={!rejectionReason.trim()}
               >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* <!--view- Modal --> */}
-
-      <div
-        class='modal fade'
-        id='view-fdbck-mddl'
-        tabindex='-1'
-        aria-labelledby='exampleModalLabel'
-        aria-hidden='true'
-      >
-        <div class='modal-dialog'>
-          <div class='modal-content'>
-            <div class='modal-header'>
-              <h1 class='modal-title fs-5' id='exampleModalLabel'>
-                View Feedback
-              </h1>
-              <button
-                type='button'
-                class='btn-close'
-                data-bs-dismiss='modal'
-                aria-label='Close'
-              ></button>
-            </div>
-            <div class='modal-body'>
-              <div className='view-mdl '>
-                <div className='form-group only-view mb-3'>
-                  <label className='mb-3'>Feedback</label>
-                  <textarea className='form-control' rows='6'>
-                    {' '}
-                  </textarea>
-                </div>
-
-                <div className='form-group'>
-                  <label className='mb-3'>Reply</label>
-                  <textarea
-                    className='form-control'
-                    placeholder='Enter your message here..'
-                  >
-                    {' '}
-                  </textarea>
-                </div>
-              </div>
-            </div>
-            <div class='modal-footer'>
-              <button type='button' class='btn btn-primary'>
-                Send
-              </button>
-              <button
-                type='button'
-                class='btn btn-outline-white'
-                data-bs-dismiss='modal'
-              >
-                Close
-              </button>
+                Submit
+              </Button>
+              <Button variant="secondary" data-bs-dismiss="modal">
+                Cancel
+              </Button>
             </div>
           </div>
         </div>
       </div>
     </Container>
-  )
-}
+  );
+};
 
-export default Payments
+export default Payments;
