@@ -63,7 +63,7 @@ const QRCodes = () => {
 
   useEffect(() => {
     fetchQRCode();
-  }, []);
+  }, [token]);
 
   return (
     <div className="container mt-4">
