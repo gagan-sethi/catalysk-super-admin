@@ -45,7 +45,7 @@ const QRCodes = () => {
       const response = await axios.post(`${API_URL}/addQRCode`, formData, {
         headers: {
           Authorization:
-            "Bearer d527c719af2db07b02b744f836bd3361b4609c45bade79e1b9417641f79022e8935ac128ed40cc8fb52279e56cfcfba86d2d86d40ea005fb6192bb3f906ee49fe984947f584fb0661785c49afc6553b4da9c2ad86c8a4ed07d100f370e8fc2343a74c3ed68d3fe2768612cde0b208ee5444f3b902a436dc4a5d6f900ceea866c33c83265b708c617cde2ac6dc755456a491236d8e996e3b8f740435459619c13282276d91505d74839aa129b0a17f16a4976c589b59944104ec6927ecc2fab3eddd67087a1aa5d4444462cd48be77a8d",
+            `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
