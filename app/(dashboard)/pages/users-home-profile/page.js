@@ -347,7 +347,7 @@ const UsersList = () => {
     <>
       <Container fluid className="p-6">
         {/* Page Heading */}
-        <PageHeading heading="Users List" />
+        <PageHeading heading="Users Home Profile" />
 
         <div className="main-content-wrapper">
           <div className="card">
@@ -454,123 +454,37 @@ const UsersList = () => {
                   <table className="table table-striped">
                     <thead>
                       <tr>
-                        <th scope="col">
-                          <input
-                            type="checkbox"
-                            onChange={selectAll}
-                            class="form-check-input"
-                          />
-                        </th>
+                        
                         <th scope="col">Sr. No.</th>
                         <th scope="col">User ID</th>
                         <th scope="col">Full Name</th>
 
-                        <th scope="col">Personal Email</th>
+                       
                         <th scope="col">Zipcode</th>
+                        <th scope="col">City</th>
+                        <th scope="col">#Rooms</th>
+                        <th scope="col">#People</th>
+                        <th scope="col">Home Type</th>
 
-                        <th scope="col">Status</th>
-                        <th scope="col">Last LogIn</th>
-                        <th scope="col">Sign up</th>
-                        <th scope="col">Onboarded</th>
-                        <th scope="col">Team</th>
-                        <th scope="col">Corporate Email</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Action</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
                       {users?.map((tdata, index) => (
                         <tr>
-                          <td>
-                            {" "}
-                            <input
-                              type="checkbox"
-                              checked={selectedItem.includes(tdata._id)}
-                              class="form-check-input"
-                              value={tdata._id}
-                              onChange={checkboxHandler}
-                            />{" "}
-                          </td>
+                          
                           <th scope="row">{index + 1}</th>
                           <td>{tdata?.user_info?.user_id} </td>
                           <td>{tdata?.user_info?.full_name} </td>
 
-                          <td>{tdata.email}</td>
-
+                         
                           <td>{tdata?.user_info?.zip_code}</td>
+                          <td>{tdata?.user_info?.address && tdata?.user_info?.address.length>0 ? tdata?.user_info?.address[0].city : 'N/A'}</td>
+                          <td>{tdata?.electricity_consumption.length>0 ? tdata?.electricity_consumption[0]?.no_of_rooms : '--'}</td>
+                          <td>{tdata?.electricity_consumption.length>0 ? tdata?.electricity_consumption[0]?.no_of_people : '--'}</td>
+                          <td>{tdata?.electricity_consumption.length>0 ? tdata?.electricity_consumption[0]?.room_type : '--'}</td>
+                          
 
-                          <td>
-                            <div className="status-td">
-                              <span className="active">
-                                {capitalizeFirstLetter(tdata.status)}
-                              </span>
-                            </div>
-                          </td>
-                          <td>{new Date(tdata?.createdAt).toLocaleString()}</td>
-                          <td>{new Date(tdata?.last_log_in).toLocaleString()}</td>
-                          <td>{new Date(tdata?.onboarding_completed_at).toLocaleString()}</td>
-                          <td>{'N/A'}</td>
-                          <td>{tdata?.user_company ? tdata?.user_company.corporate_email : 'N/A'}</td>
-                          <td className="text-nowrap">
-                            {capitalizeFirstLetter(tdata.user_type)}
-                          </td>
-
-                          <td className="action-td">
-                            <div className="dropdown">
-                              <span
-                                className="cstmDropdown dropdown-toggle"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                              >
-                                <i className="fe fe-more-vertical"></i>
-                              </span>
-                              <ul className="dropdown-menu">
-                                <li>
-                                  <Link
-                                    className="dropdown-item"
-                                    href={`/pages/view-user/${tdata._id}`}
-                                  >
-                                    View
-                                  </Link>
-                                </li>
-
-                                {tdata.status === "active" ? (
-                                  <li>
-                                    <a
-                                      onClick={(e) => blockid(tdata._id)}
-                                      className="dropdown-item"
-                                      data-bs-toggle="modal"
-                                      data-bs-target="#block-mddl"
-                                    >
-                                      Block
-                                    </a>
-                                  </li>
-                                ) : (
-                                  <li>
-                                    <a
-                                      onClick={(e) => blockid(tdata._id)}
-                                      className="dropdown-item"
-                                      data-bs-toggle="modal"
-                                      data-bs-target="#unblock-mddl"
-                                    >
-                                      Unblock
-                                    </a>
-                                  </li>
-                                )}
-
-                                <li>
-                                  <a
-                                    onClick={(e) => blockid(tdata._id)}
-                                    className="dropdown-item"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#delete-mddl"
-                                  >
-                                    Delete
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </td>
                         </tr>
                       ))}
                     </tbody>

@@ -38,6 +38,8 @@ import Cookies from "js-cookie";
         if (error?.response?.data === "Unauthorized") {
         //   Cookies.remove("token");
             localStorage.remove("token");
+            localStorage.remove("isLoggedIn");
+           // alert("Token removed");
             // router?.push("authentication/sign-in");
             toast?.error(error?.response?.data);
             return false;

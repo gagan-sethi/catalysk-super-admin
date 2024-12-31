@@ -1,6 +1,7 @@
 'use client'
 // import node module libraries
 import { Container, Form, Image } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
 
 // import widget as custom components
 import { PageHeading } from 'widgets'
@@ -9,13 +10,61 @@ import { PageHeading } from 'widgets'
 
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from 'react'
+
 import { Tabs, Placeholder } from 'rsuite'
 
 const BillsManagement = () => {
   // hide show filters
   const [isVisible, setIsVisible] = useState(false)
+  const [bills, setBills] = useState([])
+  const [pageSize] = useState(10);
+  const [offsetentry, setoffsetentry] = useState(0);
+  const [token, setToken] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  useEffect(() => {
+    // Only runs on the client-side
+    const tokenFromLocalStorage = localStorage.getItem("token");
+    setToken(tokenFromLocalStorage || "");
+  }, []);
+  async function getdoc() {
+    console.log("Search : " + search);
+    const offset = (currentPage - 1) * pageSize;
+    const limit = pageSize;
+    setoffsetentry(offset);
+  
+    try {
+      const endpoint = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/userBills`;
+      const queryParams = `?limit=${limit}&offset=${offset}${search ? `&search=${search}` : ""}`;
+      const url = endpoint + queryParams;
+  
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      const data = await res.json();
+      console.log(data);
+  
+      if (res.ok) {
+        setBills(data.data); // Assuming `data.data` contains the user bills
+        setTotalItems(data?.count);
+        setentry(data?.data?.length + offset);
+      } else {
+        console.error("Failed to fetch data:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching user bills:", error);
+    }
+  }
+  
+  // Simulate API call
 
+  useEffect(() => {
+    getdoc();
+  }, [currentPage, search, token]);
   const showFilters = () => {
     setIsVisible(!isVisible)
   }
@@ -120,351 +169,56 @@ const BillsManagement = () => {
                     </div>
                     <div className='table-div'>
                       <div className='table-responsive'>
-                        <table className='table table-striped'>
-                          <thead>
-                            <tr>
-                              <th scope='col'>
-                                <input
-                                  type='checkbox'
-                                  class='form-check-input'
-                                />
-                              </th>
-                              <th scope='col'>Name</th>
-                              <th scope='col'>Email</th>
-                              <th scope='col'>Quest Type</th>
-                              <th scope='col'>Bill Type</th>
-                              <th scope='col'>Actions</th>
-                              {/* <th scope='col'>Status</th> */}
-                              <th scope='col'>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <input
-                                  type='checkbox'
-                                  class='form-check-input'
-                                />
-                              </td>
-                              <td className='text-nowrap'>Prabhjot Singh</td>
-                              <td>prabh123@gmail.com</td>
-                              <td>Electricity</td>
-                              <td>Monthly</td>
-                              <td className='myButtons'>
-                                <div className='d-flex align-items-center gap-2'>
-                                  <button type='button' class='btn btn-primary'>
-                                    Approve
-                                  </button>
-                                  <button
-                                    type='button'
-                                    class='btn btn-danger'
-                                    data-bs-toggle='modal'
-                                    data-bs-target='#delete-mddl'
-                                  >
-                                    Reject
-                                  </button>
-                                </div>
-                              </td>
-                              {/* <td>
-                              <div className='status-td'>
-                                <span className='active'>Approved</span>
+                      <table className='table table-striped'>
+                      <thead>
+                        <tr>
+                          <th scope='col'>
+                            <input
+                              type='checkbox'
+                              className='form-check-input'
+                            />
+                          </th>
+                          <th scope='col'>Email</th>
+                          <th scope='col'>Quest Type</th>
+                          <th scope='col'>Month</th>
+                          <th scope='col'>Year</th>
+                          <th scope='col'>Status</th>
+                          <th scope='col'>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {bills.map((bill, index) => (
+                          <tr key={bill._id}>
+                            <td>
+                              <input
+                                type='checkbox'
+                                className='form-check-input'
+                              />
+                            </td>
+                            <td>{bill.email}</td>
+                            <td>{bill.utility_bills.type}</td>
+                            <td>{bill.utility_bills.month_of_bill}</td>
+                            <td>{bill.utility_bills.year_of_the_bill}</td>
+                            <td>{bill.utility_bills.status}</td>
+                            <td>
+                              <div className='d-flex align-items-center gap-2'>
+                                <button type='button' className='btn btn-primary'>
+                                  Approve
+                                </button>
+                                <button
+                                  type='button'
+                                  className='btn btn-danger'
+                                  data-bs-toggle='modal'
+                                  data-bs-target='#delete-mddl'
+                                >
+                                  Reject
+                                </button>
                               </div>
-                            </td> */}
-
-                              <td className='action-td'>
-                                <div className='dropdown'>
-                                  <span
-                                    className='cstmDropdown dropdown-toggle'
-                                    data-bs-toggle='dropdown'
-                                    aria-expanded='false'
-                                  >
-                                    <i className='fe fe-more-vertical'></i>
-                                  </span>
-                                  <ul className='dropdown-menu'>
-                                    <li>
-                                      <Link
-                                        className='dropdown-item'
-                                        href='/pages/view-bill'
-                                      >
-                                        View
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <input
-                                  type='checkbox'
-                                  class='form-check-input'
-                                />
-                              </td>
-                              <td className='text-nowrap'>Yashpal Singh</td>
-                              <td>yash233@gmail.com</td>
-                              <td>Water</td>
-                              <td>Monthly</td>
-                              <td className='myButtons'>
-                                <div className='d-flex align-items-center gap-2'>
-                                  <button type='button' class='btn btn-primary'>
-                                    Approve
-                                  </button>
-                                  <button
-                                    type='button'
-                                    class='btn btn-danger'
-                                    data-bs-toggle='modal'
-                                    data-bs-target='#delete-mddl'
-                                  >
-                                    Reject
-                                  </button>
-                                </div>
-                              </td>
-                              {/* <td>
-                              <div className='status-td'>
-                                <span className='active'>Approved</span>
-                              </div>
-                            </td> */}
-
-                              <td className='action-td'>
-                                <div className='dropdown'>
-                                  <span
-                                    className='cstmDropdown dropdown-toggle'
-                                    data-bs-toggle='dropdown'
-                                    aria-expanded='false'
-                                  >
-                                    <i className='fe fe-more-vertical'></i>
-                                  </span>
-                                  <ul className='dropdown-menu'>
-                                    <li>
-                                      <Link
-                                        className='dropdown-item'
-                                        href='/pages/view-bill'
-                                      >
-                                        View
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <input
-                                  type='checkbox'
-                                  class='form-check-input'
-                                />
-                              </td>
-                              <td className='text-nowrap'>Prabhjot Singh</td>
-                              <td>prabh123@gmail.com</td>
-                              <td>Electricity</td>
-                              <td>Monthly</td>
-                              <td className='myButtons'>
-                                <div className='d-flex align-items-center gap-2'>
-                                  <button type='button' class='btn btn-primary'>
-                                    Approve
-                                  </button>
-                                  <button
-                                    type='button'
-                                    class='btn btn-danger'
-                                    data-bs-toggle='modal'
-                                    data-bs-target='#delete-mddl'
-                                  >
-                                    Reject
-                                  </button>
-                                </div>
-                              </td>
-                              {/* <td>
-                              <div className='status-td'>
-                                <span className='active'>Approved</span>
-                              </div>
-                            </td> */}
-
-                              <td className='action-td'>
-                                <div className='dropdown'>
-                                  <span
-                                    className='cstmDropdown dropdown-toggle'
-                                    data-bs-toggle='dropdown'
-                                    aria-expanded='false'
-                                  >
-                                    <i className='fe fe-more-vertical'></i>
-                                  </span>
-                                  <ul className='dropdown-menu'>
-                                    <li>
-                                      <Link
-                                        className='dropdown-item'
-                                        href='/pages/view-bill'
-                                      >
-                                        View
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <input
-                                  type='checkbox'
-                                  class='form-check-input'
-                                />
-                              </td>
-                              <td className='text-nowrap'>Prabhjot Singh</td>
-                              <td>prabh123@gmail.com</td>
-                              <td>Electricity</td>
-                              <td>Monthly</td>
-                              <td className='myButtons'>
-                                <div className='d-flex align-items-center gap-2'>
-                                  <button type='button' class='btn btn-primary'>
-                                    Approve
-                                  </button>
-                                  <button
-                                    type='button'
-                                    class='btn btn-danger'
-                                    data-bs-toggle='modal'
-                                    data-bs-target='#delete-mddl'
-                                  >
-                                    Reject
-                                  </button>
-                                </div>
-                              </td>
-                              {/* <td>
-                              <div className='status-td'>
-                                <span className='active'>Approved</span>
-                              </div>
-                            </td> */}
-
-                              <td className='action-td'>
-                                <div className='dropdown'>
-                                  <span
-                                    className='cstmDropdown dropdown-toggle'
-                                    data-bs-toggle='dropdown'
-                                    aria-expanded='false'
-                                  >
-                                    <i className='fe fe-more-vertical'></i>
-                                  </span>
-                                  <ul className='dropdown-menu'>
-                                    <li>
-                                      <Link
-                                        className='dropdown-item'
-                                        href='/pages/view-bill'
-                                      >
-                                        View
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <input
-                                  type='checkbox'
-                                  class='form-check-input'
-                                />
-                              </td>
-                              <td className='text-nowrap'>Yashpal Singh</td>
-                              <td>yash233@gmail.com</td>
-                              <td>Water</td>
-                              <td>Monthly</td>
-                              <td className='myButtons'>
-                                <div className='d-flex align-items-center gap-2'>
-                                  <button type='button' class='btn btn-primary'>
-                                    Approve
-                                  </button>
-                                  <button
-                                    type='button'
-                                    class='btn btn-danger'
-                                    data-bs-toggle='modal'
-                                    data-bs-target='#delete-mddl'
-                                  >
-                                    Reject
-                                  </button>
-                                </div>
-                              </td>
-                              {/* <td>
-                              <div className='status-td'>
-                                <span className='active'>Approved</span>
-                              </div>
-                            </td> */}
-
-                              <td className='action-td'>
-                                <div className='dropdown'>
-                                  <span
-                                    className='cstmDropdown dropdown-toggle'
-                                    data-bs-toggle='dropdown'
-                                    aria-expanded='false'
-                                  >
-                                    <i className='fe fe-more-vertical'></i>
-                                  </span>
-                                  <ul className='dropdown-menu'>
-                                    <li>
-                                      <Link
-                                        className='dropdown-item'
-                                        href='/pages/view-bill'
-                                      >
-                                        View
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <input
-                                  type='checkbox'
-                                  class='form-check-input'
-                                />
-                              </td>
-                              <td className='text-nowrap'>Prabhjot Singh</td>
-                              <td>prabh123@gmail.com</td>
-                              <td>Electricity</td>
-                              <td>Monthly</td>
-                              <td className='myButtons'>
-                                <div className='d-flex align-items-center gap-2'>
-                                  <button type='button' class='btn btn-primary'>
-                                    Approve
-                                  </button>
-                                  <button
-                                    type='button'
-                                    class='btn btn-danger '
-                                    data-bs-toggle='modal'
-                                    data-bs-target='#delete-mddl'
-                                  >
-                                    Reject
-                                  </button>
-                                </div>
-                              </td>
-                              {/* <td>
-                              <div className='status-td'>
-                                <span className='active'>Approved</span>
-                              </div>
-                            </td> */}
-
-                              <td className='action-td'>
-                                <div className='dropdown'>
-                                  <span
-                                    className='cstmDropdown dropdown-toggle'
-                                    data-bs-toggle='dropdown'
-                                    aria-expanded='false'
-                                  >
-                                    <i className='fe fe-more-vertical'></i>
-                                  </span>
-                                  <ul className='dropdown-menu'>
-                                    <li>
-                                      <Link
-                                        className='dropdown-item'
-                                        href='/pages/view-bill'
-                                      >
-                                        View
-                                      </Link>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                       </div>
                       <div className='pagination-div'>
                         <nav aria-label='...'>

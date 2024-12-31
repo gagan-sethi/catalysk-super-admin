@@ -16,7 +16,8 @@ const Payments = () => {
   const fetchPayments = async () => {
     try {
       const response = await axios.get(
-        'https://betazone.promaticstechnologies.com/admin/payment/getPaymentProof?limit=10&offset=0&search=',
+        
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/payment/getPaymentProof?limit=10&offset=0&search=`,
         {
           headers: {
             Authorization: 'Bearer d527c719af2db07b02b744f836bd3361b4609c45bade79e1b9417641f79022e8935ac128ed40cc8fb52279e56cfcfba86d2d86d40ea005fb6192bb3f906ee49fe984947f584fb0661785c49afc6553b4da9c2ad86c8a4ed07d100f370e8fc2343a74c3ed68d3fe2768612cde0b208ee5444f3b902a436dc4a5d6f900ceea866c33c83265b708c617cde2ac6dc755456a491236d8e996e3b8f740435459619c13282276d91505d74839aa129b0a17f16a4976c589b59944104ec6927ecc2fab3eddd67087a1aa5d4444462cd48be77a8d',
@@ -39,7 +40,7 @@ const Payments = () => {
   const handleAction = async (paymentId, status) => {
     try {
       const response = await axios.post(
-        'https://betazone.promaticstechnologies.com/admin/payment/approveOrRejectPayment',
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/payment/approveOrRejectPayment`,
         {
           id: paymentId,
           status,
@@ -65,9 +66,9 @@ const Payments = () => {
 
   return (
     <Container fluid className="p-6">
-      <PageHeading heading="Payments" />
+      <PageHeading heading="Subscription Info" />
 
-      <div className="card">
+      <div className="card">  
         <div className="card-body">
           <div className="table-div">
             <div className="table-responsive">
@@ -76,10 +77,11 @@ const Payments = () => {
                   <tr>
                     <th scope="col">Sr. No.</th>
                     <th scope="col">Username</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">User ID</th>
                     <th scope="col">Plan Name</th>
-                    <th scope="col">Reference Number</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Txn ref no</th>
+                    <th scope="col">Payment Date</th>
+                    <th scope="col">Rejection Reason</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -91,7 +93,8 @@ const Payments = () => {
                       <td>{payment.email}</td>
                       <td>{payment.plan_name}</td>
                       <td>{payment.ref_number}</td>
-                      <td>{payment.status}</td>
+                      <td>{new Date(payment.createdAt).toLocaleDateString()}</td>
+                      <td>{payment.status === 'rejected' ? payment.note : 'N/A'}</td>
                       <td>
                         {payment.status === 'approved' ? (
                           <Button variant="success" disabled>
@@ -102,7 +105,7 @@ const Payments = () => {
                             <Button variant="danger" disabled>
                               Rejected
                             </Button>
-                            <p className="text-muted">{payment.note}</p>
+                           
                           </div>
                         ) : (
                           <div className="d-flex gap-2">

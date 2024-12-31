@@ -51,12 +51,24 @@ export const DashboardMenu = [
 		icon: 'home',
 		link: '/pages/dashboard'
 	},
-
 	{
 		id: uuid(),
 		title: 'Users Management',
 		icon: 'users',
-		link: '/pages/users-management'
+		children: [
+			{ id: uuid(), link: '/pages/users-management', name: 'User Profile Dashboard' },
+			{ id: uuid(), link: '/pages/users-home-profile', name: 'User Home Profile' }
+		]
+	},
+	{
+		id: uuid(),
+		title: 'Subscription Info',
+		icon: 'edit',
+		children: [
+			{ id: uuid(), link: '/pages/payment-plans', name: 'Payment Plans' },
+			{ id: uuid(), link: '/pages/qr-codes', name: 'QR Codes' },
+			{ id: uuid(), link: '/pages/payments', name: 'Payments' },
+		]
 	},
 	{
 		id: uuid(),
@@ -131,16 +143,7 @@ export const DashboardMenu = [
 			{ id: uuid(), link: '/pages/faq-management', name: 'F.A.Q' }
 		]
 	},
-	{
-		id: uuid(),
-		title: 'Manage Payments',
-		icon: 'edit',
-		children: [
-			{ id: uuid(), link: '/pages/payment-plans', name: 'Payment Plans' },
-			{ id: uuid(), link: '/pages/qr-codes', name: 'QR Codes' },
-			{ id: uuid(), link: '/pages/payments', name: 'Payments' },
-		]
-	},
+
 
 	{
 		id: uuid(),
