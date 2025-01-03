@@ -111,6 +111,11 @@ const CorporateUserManagement = () => {
                                       View Invoices
                                     </Link>
                                   </li>
+                                  <li>
+                                  <Link className="dropdown-item" href={`/pages/manage-domains`} passHref>
+                                      Manage Domains
+                                    </Link>
+                                  </li>
                                   
                                 </ul>
                               </div>
