@@ -112,7 +112,7 @@ const CorporateUserManagement = () => {
                                     </Link>
                                   </li>
                                   <li>
-                                  <Link className="dropdown-item" href={`/pages/manage-domains`} passHref>
+                                  <Link className="dropdown-item" href={`/pages/manage-domains?company_id=${customer._id}`} passHref>
                                       Manage Domains
                                     </Link>
                                   </li>
