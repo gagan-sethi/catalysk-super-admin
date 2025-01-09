@@ -97,12 +97,12 @@ export const DashboardMenu = [
 		link: '/pages/bills-management'
 	},
 
-	{
-		id: uuid(),
-		title: 'Societies Management',
-		icon: 'git-pull-request',
-		link: '#'
-	},
+	// {
+	// 	id: uuid(),
+	// 	title: 'Societies Management',
+	// 	icon: 'git-pull-request',
+	// 	link: '#'
+	// },
 
 	{
 		id: uuid(),
@@ -125,12 +125,12 @@ export const DashboardMenu = [
 		]
 	},
 
-	{
-		id: uuid(),
-		title: 'Challenges Management',
-		icon: 'pocket',
-		link: '#'
-	},
+	// {
+	// 	id: uuid(),
+	// 	title: 'Challenges Management',
+	// 	icon: 'pocket',
+	// 	link: '#'
+	// },
 
 	{
 		id: uuid(),

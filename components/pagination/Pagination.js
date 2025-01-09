@@ -12,7 +12,7 @@ const Pagination = ({
 }) => {
 
 
-  console.log("pageno",currentPage)
+  // console.log("pageno",currentPage)
 
   const nextPage = () => {
     const totalPages = Math.ceil(totalItems / pageSize);
@@ -57,9 +57,8 @@ const Pagination = ({
           <nav>
       
             <ul className="pagination pagination-md">
-              <select class="form-select mx-2" aria-label="Default select example" onClick={handleSelect}>
+              <select className="form-select mx-2" aria-label="Default select example" onChange={handleSelect} value={pageSize} >
                 <option value="5">5</option>
-             
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
@@ -101,8 +100,8 @@ const Pagination = ({
                 const minPage = Math.max(1, currentPage - pagetominus);
                 const maxPage = Math.min(totalPages, currentPage + pagetoplus);
 
-                console.log("minPage", minPage);
-                console.log("maxPage", maxPage);
+                // console.log("minPage", minPage);
+                // console.log("maxPage", maxPage);
 
                 if (pageNumber >= minPage && pageNumber <= maxPage) {
                   return (
@@ -130,7 +129,7 @@ const Pagination = ({
               })}
 
               <li className="page-item">
-                <button className="page-link text-dark" onClick={nextPage}>
+                <button className="page-link text-dark" onClick={nextPage} disabled={currentPage === totalPages}>
                   {/* &raquo; */}
                   Next
                 </button>
