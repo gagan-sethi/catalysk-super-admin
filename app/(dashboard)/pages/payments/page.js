@@ -2,7 +2,7 @@
 
 // Import necessary libraries
 import { useState, useEffect } from 'react';
-import { Col, Row, Container, Button } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import { PageHeading } from 'widgets';
 import axios from 'axios';
 
@@ -11,13 +11,43 @@ const Payments = () => {
   const [loading, setLoading] = useState(true);
   const [rejectionReason, setRejectionReason] = useState('');
   const [selectedPayment, setSelectedPayment] = useState(null);
+  const [pageSize] = useState(10);
+  const [entry, setentry] = useState(0);
 
+  const [totalItems, setTotalItems] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [offsetentry, setoffsetentry] = useState(0);
+
+  const nextPage = () => {
+    const totalPages = Math.ceil(totalItems / pageSize);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const totalPages = Math.ceil(totalItems / pageSize);
+  console.log("totalPages", totalPages, totalItems, pageSize);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
   // Fetch payments data
   const fetchPayments = async () => {
+    const offset = (currentPage - 1) * pageSize;
+    const limit = pageSize;
+    setoffsetentry(offset);
+
     try {
       const response = await axios.get(
         
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/payment/getPaymentProof?limit=10&offset=0&search=`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/payment/getPaymentProof?limit=10&offset=${offset}&search=`,
         {
           headers: {
             Authorization: 'Bearer d527c719af2db07b02b744f836bd3361b4609c45bade79e1b9417641f79022e8935ac128ed40cc8fb52279e56cfcfba86d2d86d40ea005fb6192bb3f906ee49fe984947f584fb0661785c49afc6553b4da9c2ad86c8a4ed07d100f370e8fc2343a74c3ed68d3fe2768612cde0b208ee5444f3b902a436dc4a5d6f900ceea866c33c83265b708c617cde2ac6dc755456a491236d8e996e3b8f740435459619c13282276d91505d74839aa129b0a17f16a4976c589b59944104ec6927ecc2fab3eddd67087a1aa5d4444462cd48be77a8d',
@@ -25,6 +55,8 @@ const Payments = () => {
         }
       );
       setPayments(response.data.data);
+      setTotalItems(response.data.count);
+      setentry(response?.data?.data?.length + offset);
     } catch (error) {
       console.error('Error fetching payments:', error);
     } finally {
@@ -34,7 +66,7 @@ const Payments = () => {
 
   useEffect(() => {
     fetchPayments();
-  }, []);
+  }, [currentPage]);
 
   // Handle approve or reject action
   const handleAction = async (paymentId, status) => {
@@ -88,7 +120,7 @@ const Payments = () => {
                 <tbody>
                   {payments.map((payment, index) => (
                     <tr key={payment._id}>
-                      <td>{index + 1}</td>
+                      <td>{((currentPage - 1) * pageSize)+ index + 1}</td>
                       <td>{payment.full_name}</td>
                       <td>{payment.email}</td>
                       <td>{payment.plan_name}</td>
@@ -133,10 +165,88 @@ const Payments = () => {
                   ))}
                 </tbody>
               </table>
+              <div className="pagination-div">
+                  <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="page-item disabled">
+                        <span>
+                          <a
+                            class="page-link"
+                            onClick={prevPage}
+                            disabled={currentPage === 1}
+                          >
+                            Previous
+                          </a>
+                        </span>
+                      </li>
+                      {pageNumbers.map((pageNumber) => {
+                        let pagetominus = 2;
+                        let pagetoplus = 2;
+
+                        if (currentPage == 1) {
+                          pagetominus = 1;
+                          pagetoplus = 4;
+                        } else if (currentPage == 2) {
+                          pagetominus = 2;
+                          pagetoplus = 3;
+                        } else if (currentPage == 3) {
+                          pagetominus = 3;
+                          pagetoplus = 2;
+                        } else if (currentPage + 1 == totalPages) {
+                          pagetominus = 3;
+                          pagetoplus = 2;
+                        } else if (currentPage == totalPages) {
+                          pagetominus = 4;
+                          pagetoplus = 2;
+                        }
+
+                        const minPage = Math.max(1, currentPage - pagetominus);
+                        const maxPage = Math.min(
+                          totalPages,
+                          currentPage + pagetoplus
+                        );
+
+                        //console.log("minPage", minPage);
+                        //console.log("maxPage", maxPage);
+
+                        if (pageNumber >= minPage && pageNumber <= maxPage) {
+                          return (
+                            <li
+                              key={pageNumber}
+                              className={`page-item ${
+                                currentPage === pageNumber ? "active" : ""
+                              }`}
+                            >
+                              <button
+                                className={`page-link ${
+                                  currentPage === pageNumber
+                                    ? "bg-dark text-white border-dark"
+                                    : "text-dark"
+                                }`}
+                                onClick={() => setCurrentPage(pageNumber)}
+                              >
+                                <b>{pageNumber}</b>
+                              </button>
+                            </li>
+                          );
+                        }
+                        return null;
+                      })}
+
+                      <li class="page-item">
+                        <a class="page-link" onClick={nextPage}>
+                          Next
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
             </div>
           </div>
         </div>
+        
       </div>
+
 
       {/* Rejection Modal */}
       <div
